@@ -12,12 +12,12 @@ class LoginActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil
-            .setContentView<ActivityLoginBinding>(this, R.layout.activity_login)
+            .setContentView(this, R.layout.activity_login)
         binding.bLogin.setOnClickListener {
             val intent = Intent(applicationContext, MainActivity::class.java)
             startActivity(intent)
         }
-        binding.bSignUp.setOnClickListener {
+        binding.tvSignUp.setOnClickListener {
             val intent = Intent(applicationContext, SignupActivity::class.java)
             startActivity(intent)
             overridePendingTransition(R.anim.slide_up, R.anim.stay)
