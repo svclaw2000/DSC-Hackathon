@@ -17,5 +17,10 @@ class LoginActivity : AppCompatActivity() {
             val intent = Intent(applicationContext, MainActivity::class.java)
             startActivity(intent)
         }
+        binding.bSignUp.setOnClickListener {
+            val intent = Intent(applicationContext, SignupActivity::class.java)
+            startActivity(intent)
+            overridePendingTransition(R.anim.slide_up, R.anim.stay)
+        }
     }
 }
