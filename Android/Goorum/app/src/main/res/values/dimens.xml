@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <dimen name="login_input_width">280dp</dimen>
+    <dimen name="top_button">52dp</dimen>
+    <dimen name="my_info_list">8dp</dimen>
+    <dimen name="my_info_list_wide">16dp</dimen>
+    <dimen name="my_info_padding">16dp</dimen>
 </resources>
