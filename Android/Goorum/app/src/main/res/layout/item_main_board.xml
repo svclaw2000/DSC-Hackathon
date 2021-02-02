@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    tools:background="@drawable/bg_boundary_test">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="자유게시판"
+        android:textSize="@dimen/board_text_size_15sp"
+        android:textColor="@color/board_text"
+        android:layout_marginTop="@dimen/board_text_margin_v_10dp"
+        android:layout_marginBottom="@dimen/board_text_margin_v_10dp"
+        android:layout_marginStart="@dimen/board_text_margin_h_20dp"
+        android:layout_marginEnd="@dimen/board_text_margin_h_20dp"
+        />
+</LinearLayout>

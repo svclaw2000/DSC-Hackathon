@@ -1,18 +1,106 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    android:orientation="vertical">
 
-    <TextView
-        android:layout_width="wrap_content"
+    <!--  Status bar for icon  -->
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:background="@color/main_status_bar"
+        android:gravity="center"
+        android:paddingStart="@dimen/status_bar_padding_h_20dp"
+        android:paddingEnd="@dimen/status_bar_padding_h_20dp">
+        
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/app_name"
+            android:textSize="@dimen/title_text_size_20sp"
+            android:textColor="@color/board_text"
+            android:layout_marginTop="@dimen/title_text_margin_v_10dp"
+            android:layout_marginBottom="@dimen/title_text_margin_v_10dp" />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+        
+        <ImageView
+            android:layout_width="@dimen/main_icon_size_20dp"
+            android:layout_height="@dimen/main_icon_size_20dp"
+            android:src="@drawable/ic_notification"
+            android:layout_margin="@dimen/main_icon_margin_10dp" />
+
+        <ImageView
+            android:layout_width="@dimen/main_icon_size_20dp"
+            android:layout_height="@dimen/main_icon_size_20dp"
+            android:src="@drawable/ic_mypage"
+            android:layout_margin="@dimen/main_icon_margin_10dp" />
+    </LinearLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@drawable/bg_board_list"
+                android:padding="@dimen/board_list_padding_15dp"
+                android:layout_marginTop="@dimen/board_list_margin_v_5dp"
+                android:layout_marginBottom="@dimen/board_list_margin_v_5dp"
+                android:layout_marginStart="@dimen/board_list_margin_h_10dp"
+                android:layout_marginEnd="@dimen/board_list_margin_h_10dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/list_recommend"
+                    android:textSize="@dimen/board_text_size_15sp"
+                    android:textColor="@color/board_text"
+                    android:layout_marginBottom="@dimen/main_list_title_margin_b_10dp"/>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_recommend"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@drawable/bg_board_list"
+                android:padding="@dimen/board_list_padding_15dp"
+                android:layout_marginTop="@dimen/board_list_margin_v_5dp"
+                android:layout_marginBottom="@dimen/board_list_margin_v_5dp"
+                android:layout_marginStart="@dimen/board_list_margin_h_10dp"
+                android:layout_marginEnd="@dimen/board_list_margin_h_10dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/list_board"
+                    android:textSize="@dimen/board_text_size_15sp"
+                    android:textColor="@color/board_text"
+                    android:layout_marginBottom="@dimen/main_list_title_margin_b_10dp"/>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rv_board"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:overScrollMode="never"/>
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

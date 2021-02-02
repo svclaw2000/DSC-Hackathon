@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="line_1dp">1dp</dimen>
+
+    <dimen name="title_text_size_20sp">20sp</dimen>
+    <dimen name="title_text_margin_v_10dp">10dp</dimen>
+    <dimen name="status_bar_padding_h_20dp">20dp</dimen>
+
+    <dimen name="main_icon_size_20dp">20dp</dimen>
+    <dimen name="main_icon_margin_10dp">10dp</dimen>
+    <dimen name="board_text_margin_v_10dp">10dp</dimen>
+    <dimen name="board_text_margin_h_20dp">20dp</dimen>
+    <dimen name="board_text_size_15sp">15sp</dimen>
+    <dimen name="board_list_corner_15dp">15dp</dimen>
+    <dimen name="board_list_padding_15dp">15dp</dimen>
+    <dimen name="board_list_margin_h_10dp">10dp</dimen>
+    <dimen name="board_list_margin_v_5dp">5dp</dimen>
+
+    <dimen name="main_list_title_margin_b_10dp">10dp</dimen>
+
+    <dimen name="main_article_text_size_12sp">12sp</dimen>
+    <dimen name="main_article_text_size_10sp">10sp</dimen>
+    <dimen name="main_article_margin_5dp">5dp</dimen>
+    <dimen name="main_article_padding_10dp">10dp</dimen>
+    <dimen name="main_article_content_margin_h_10dp">10dp</dimen>
+    <dimen name="main_article_like_margin_e_5dp">5dp</dimen>
+    <dimen name="main_article_corner_10dp">10dp</dimen>
+    <dimen name="main_article_stroke_2dp">2dp</dimen>
+</resources>
