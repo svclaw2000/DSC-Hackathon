@@ -1,4 +1,4 @@
 package com.example.goorum.Data
 
-class Member(id: Int, username: String, nickname: String, email: String) {
+class Member(val id: Int, val username: String, val nickname: String, val email: String) {
 }
