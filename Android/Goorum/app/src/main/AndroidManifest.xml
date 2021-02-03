@@ -9,6 +9,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Goorum">
+        <activity android:name=".ArticleActivity"></activity>
+        <activity android:name=".WriteArticleActivity" />
+        <activity android:name=".BoardActivity" />
+        <activity android:name=".SearchActivity" />
         <activity android:name=".LoginActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

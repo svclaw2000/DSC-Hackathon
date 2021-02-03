@@ -3,4 +3,13 @@
 
     <string name="list_board">게시판</string>
     <string name="list_recommend">추천 글</string>
+
+    <string name="search_hint">검색어를 입력하세요</string>
+
+    <string name="write_article">글 쓰기</string>
+    <string name="article_title">제목</string>
+    <string name="article_sector">업종</string>
+    <string name="article_company">회사</string>
+    <string name="article_text">이 곳에 글을 작성하세요</string>
+    <string name="save_article">저장</string>
 </resources>
