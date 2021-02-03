@@ -11,21 +11,36 @@ import java.io.Serializable;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class BoardList implements Serializable {
+public class Boardlist implements Serializable, Article {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "board_id")
-    private Long boardId;
+    private long boardId;
 
     @Column(name = "category")
     private String category;
 
+    @Column(name="sector")
+    private String sector;
+
+    @Column(name="company")
+    private String company;
+
     @Column(name = "title")
     private String title;
 
-    @Column(name = "writer")
-    private String writer;
+    @Column(name = "content")
+    private String content;
+
+    @Column(name = "profile_photo")
+    private String profile;
+
+    @Column(name = "writer_id")
+    private long writerId;
+
+    @Column(name = "writer_nick")
+    private String writerNickname;
 
     @Column(name = "date")
     private String date;
@@ -33,9 +48,7 @@ public class BoardList implements Serializable {
     @Column(name = "likes")
     private long likes;
 
-    @Column(name = "views")
-    private long views;
-
     @Column(name = "replies")
     private long replies;
 }
+

@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.DynamicInsert;
 import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
@@ -14,29 +13,32 @@ import java.io.Serializable;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-@Builder
-@DynamicInsert
 @DynamicUpdate
-public class Reply implements Serializable {
-
+@Builder
+public class Replylist implements Serializable, Article {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "reply_id", nullable = false)
-    private Long replyId;
+    private long replyId;
 
-    @Column(name = "parent", nullable = false)
-    private Long parent;
+    @Column(nullable = false)
+    private long parent;
 
-    @Column(name = "content", nullable = false)
+    @Column(nullable = false)
     private String content;
 
-    @Column(name = "date")
+    @Column
     private String date;
 
+    @Column(name = "member_id", nullable = false)
+    private long memberId;
+
+    @Column(nullable = false)
+    private String nickname;
+
+    @Column(name = "profile_photo")
+    private String profilePhoto;
+
     @Column(name = "board", nullable = false)
-    private Long board;
-
-    @Column(name = "writer", nullable = false)
-    private Long writer;
-
+    private long boardId;
 }

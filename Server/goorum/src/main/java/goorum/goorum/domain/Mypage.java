@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -13,28 +12,26 @@ import java.io.Serializable;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-@DynamicUpdate
 @Builder
-public class Member implements Serializable {
+public class Mypage implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "member_id", nullable = false)
-    private Long memberId;
+    private long memberId;
 
-    @Column(name = "id", nullable = false)
+    @Column(nullable = false)
     private String id;
 
-    @Column(name = "nickname", nullable = false)
+    @Column(nullable = false)
     private String nickname;
-
-    @Column(name = "pwd", nullable = false)
-    private String pwd;
-
-    @Column(name = "email", nullable = false)
-    private String email;
 
     @Column(name = "profile_photo")
     private String profilePhoto;
 
+    @Column(name = "board_num", nullable = false)
+    private int boardNum;
+
+    @Column(name = "reply_num", nullable = false)
+    private int replyNum;
 }

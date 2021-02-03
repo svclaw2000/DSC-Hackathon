@@ -8,18 +8,22 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import java.io.Serializable;
 
-@Entity
+@Table(name = "member_like_board")
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
 @Builder
-public class Category implements Serializable {
+@Entity
+public class MemberLikeBoard implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "category_id", nullable = false)
-    private Long categoryId;
+    @Column(name = "mlb_id", nullable = false)
+    private long id;
 
-    @Column(name = "category_name", nullable = false)
-    private String categoryName;
+    @Column(name = "member_id", nullable = false)
+    private long memberId;
+
+    @Column(name = "board_id", nullable = false)
+    private long boardId;
 }
