@@ -2,10 +2,13 @@ package com.example.goorum
 
 import android.content.Intent
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.view.Window
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.widget.addTextChangedListener
 import androidx.databinding.DataBindingUtil
 import com.example.goorum.data.Signup
 import com.example.goorum.databinding.ActivitySignupBinding
@@ -34,13 +37,37 @@ class SignupActivity : AppCompatActivity() {
         requestWindowFeature(Window.FEATURE_NO_TITLE)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_signup)
 
+        val etEmail = binding.etEmail.editText
+        val etPassword = binding.etCreatePw.editText
+        val etConfirm = binding.etConfirmPw.editText
+
         binding.ivClose.setOnClickListener {
             onBackPressed()
         }
 
+        etEmail?.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(p0: Editable?) {
+                if (!isValidEmail(etEmail.text.toString())) {
+                    etEmail.error = "유효하지 않은 이메일입니다."
+                }
+            }
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) { }
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) { }
+        })
+
+        etConfirm?.addTextChangedListener(object: TextWatcher {
+            override fun afterTextChanged(p0: Editable?) {
+                if (etPassword?.text.toString() != etConfirm.text.toString()) {
+                    etConfirm.error = "비밀번호가 일치하지 않습니다."
+                }
+            }
+            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) { }
+            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) { }
+        })
+
         binding.bRegister.setOnClickListener {
-            email = binding.etEmail.editText?.text.toString()
-            password = binding.etCreatePw.editText?.text.toString()
+            email = etEmail?.text.toString()
+            password = etPassword?.text.toString()
             nickname = binding.etNickname.editText?.text.toString()
             Log.d(TAG, "email: $email / password: $password / nickname: $nickname")
 
@@ -48,7 +75,7 @@ class SignupActivity : AppCompatActivity() {
                 Toast.makeText(this, "모든 정보를 입력해주세요.", Toast.LENGTH_SHORT).show()
             } else if (!isValidEmail(email)) {
                 Toast.makeText(this, "유효하지 않은 이메일입니다.", Toast.LENGTH_SHORT).show()
-            } else if (!matchesThePassword()) {
+            } else if (etPassword?.text.toString() != etConfirm?.text.toString()) {
                 Toast.makeText(this, "비밀번호가 일치하지 않습니다.", Toast.LENGTH_SHORT).show()
             } else {
                 onSubmit()
@@ -79,11 +106,5 @@ class SignupActivity : AppCompatActivity() {
 
     fun isValidEmail(str: String): Boolean{
         return EMAIL_ADDRESS_PATTERN.matcher(str).matches()
-    }
-
-    fun matchesThePassword(): Boolean {
-        val confirm = binding.etConfirmPw.editText?.text.toString()
-        if (password == confirm) return true
-        return false
     }
 }

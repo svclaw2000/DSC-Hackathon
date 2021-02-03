@@ -20,7 +20,7 @@
             android:textSize="24sp"
             app:layout_constraintBottom_toBottomOf="@+id/ivClose"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/ivClose"
             app:layout_constraintVertical_bias="0.562" />
@@ -36,25 +36,18 @@
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/ic_close_foreground" />
 
-
-
-        <FrameLayout
-            android:id="@+id/flEmail"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="120dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView2">
-
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/etEmail"
                 android:layout_width="@dimen/login_input_width"
                 android:layout_height="62dp"
                 android:ems="10"
                 android:hint="Email"
+                android:layout_marginTop="120dp"
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                app:errorEnabled="true">
+                app:errorEnabled="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView2">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
@@ -62,9 +55,6 @@
                     android:inputType="textEmailAddress" />
 
             </com.google.android.material.textfield.TextInputLayout>
-
-        </FrameLayout>
-
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/etCreatePw"
@@ -74,11 +64,10 @@
             android:ems="10"
             android:hint="Create Password"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            app:endIconMode="password_toggle"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.503"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/flEmail">
+            app:layout_constraintTop_toBottomOf="@+id/etEmail">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
@@ -94,7 +83,7 @@
             android:ems="10"
             android:hint="Confirm Password"
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-            app:endIconMode="password_toggle"
+            app:errorEnabled="true"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.503"
             app:layout_constraintStart_toStartOf="parent"
@@ -103,8 +92,7 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="textPassword"
-                />
+                android:inputType="textPassword" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <Button
@@ -114,10 +102,10 @@
             android:layout_marginTop="4dp"
             android:text="Send Verification Code"
             android:visibility="gone"
-            app:layout_constraintEnd_toEndOf="@+id/flEmail"
+            app:layout_constraintEnd_toEndOf="@+id/etEmail"
             app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="@+id/flEmail"
-            app:layout_constraintTop_toBottomOf="@+id/flEmail" />
+            app:layout_constraintStart_toStartOf="@+id/etEmail"
+            app:layout_constraintTop_toBottomOf="@+id/etEmail" />
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/etNickname"
