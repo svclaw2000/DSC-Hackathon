@@ -8,12 +8,11 @@ class Signup() {
     lateinit var password: String
     lateinit var nickname: String
 
-    fun compareEmail(): Boolean {
+    fun exists(): Boolean {
        return true
     }
 
-    fun register(): Boolean {
-        return true
+    fun register() {
     }
 }
 

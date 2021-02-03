@@ -1,21 +1,33 @@
 package com.example.goorum
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.EditText
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import com.example.goorum.data.Signin
 import com.example.goorum.databinding.ActivityLoginBinding
 
 class LoginActivity : AppCompatActivity() {
     lateinit var binding: ActivityLoginBinding
+    lateinit var etEmail: EditText
+    lateinit var etPassword: EditText
     // TODO: sharedPreference
+
+    val signin = Signin()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil
             .setContentView(this, R.layout.activity_login)
+
+        etEmail = binding.etId.editText!!
+        etPassword = binding.etPassword.editText!!
+
         binding.bLogin.setOnClickListener {
-            onSignin()
+            if (etEmail.text.toString() != "" && etPassword.text.toString() != "") {
+                onSignin()
+            }
         }
         binding.tvSignUp.setOnClickListener {
             val intent = Intent(applicationContext, SignupActivity::class.java)
@@ -26,11 +38,17 @@ class LoginActivity : AppCompatActivity() {
 
     fun onSignin() {
         val intent = Intent(applicationContext, MainActivity::class.java)
-        val email = binding.etId.text.toString()
-        val password = binding.etPassword.text.toString()
+        val email = etEmail.text.toString()
+        val password = etPassword.text.toString()
 
-        //
+        signin.email = email
+        signin.password = password
 
-        startActivity(intent)
+        if (signin.matchesExistingAccount()) {
+            startActivity(intent)
+        } else {
+            val dialog = LoginFailureFragment()
+            dialog.show(supportFragmentManager, "login failed")
+        }
     }
 }
