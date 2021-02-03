@@ -1,13 +1,11 @@
 package com.example.goorum
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.Window
-import android.view.WindowManager
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
-import com.example.goorum.databinding.ActivityLoginBinding
 import com.example.goorum.databinding.ActivitySignupBinding
 
 class SignupActivity : AppCompatActivity() {
@@ -28,6 +26,8 @@ class SignupActivity : AppCompatActivity() {
 
         binding.bRegister.setOnClickListener {
             val intent = Intent(this, LoginActivity::class.java)
+            intent.flags = (Intent.FLAG_ACTIVITY_NEW_TASK
+                    or Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP)
 
             onSubmit()
 

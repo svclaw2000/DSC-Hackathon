@@ -14,8 +14,7 @@ class MyActivity : AppCompatActivity() {
         binding = DataBindingUtil.setContentView(this, R.layout.activity_my)
 
         binding.ivMyBack.setOnClickListener {
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
+            onBackPressed()
         }
     }
 }
