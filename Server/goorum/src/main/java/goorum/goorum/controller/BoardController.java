@@ -173,11 +173,13 @@ public class BoardController {
 
         Member member = (Member)request.getSession().getAttribute("loginMember");
         ModelAndView mav = new ModelAndView();
+
+        boolean isLike = false;
         if (!isNull(member)) {
-            boolean isLike = memberLikeBoardService.isLike(boardId, member.getMemberId());
+            isLike = memberLikeBoardService.isLike(boardId, member.getMemberId());
             mav.addObject("isLike", isLike);
-            res.put(isLike, isLike);
         }
+        res.put("isLike", isLike);
 
         Boardlist article = boardService.getPostByIdForViewArticle(boardId);
         CurrentArticle currentArticle = boardService.getPrevAndNextArticle(boardId);
@@ -315,9 +317,7 @@ public class BoardController {
         Member loginMember = (Member) request.getSession().getAttribute("loginMember");
         JSONObject res = new JSONObject();
 
-        if ( isNull(article) ||
-                isNull(loginMember) ||
-                (loginMember.getMemberId() != article.getWriter()) ) {
+        if ( isNull(article) || isNull(loginMember) || (loginMember.getMemberId() != article.getWriter()) ) {
             res.put(RESULT, INVALID_APPROACH);
         }
         else if (boardService.modify(article, title, content, category, sector, company)) {
