@@ -96,7 +96,9 @@ class SignupActivity : AppCompatActivity() {
                 or Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP)
 
         val signup = Signup(email, password, nickname)
-        if(signup.register()) {
+        if(!signup.notExist()) {
+            Toast.makeText(this, "이미 존재하는 계정입니다.", Toast.LENGTH_LONG).show()
+        } else if(signup.register()) {
             onBackPressed()
         } else {
             Log.e(TAG, "Sign up failed")

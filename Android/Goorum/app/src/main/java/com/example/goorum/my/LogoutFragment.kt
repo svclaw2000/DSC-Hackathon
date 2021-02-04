@@ -5,7 +5,9 @@ import android.app.Dialog
 import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.DialogFragment
+import com.example.goorum.App
 import com.example.goorum.LoginActivity
+import com.example.goorum.data.Signin
 
 
 class LogoutFragment : DialogFragment() {
@@ -16,7 +18,14 @@ class LogoutFragment : DialogFragment() {
                 .setPositiveButton("확인") { dialog, id ->
                     val intent = Intent(context, LoginActivity::class.java)
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
-                    startActivity(intent)
+
+                    val signin = Signin()
+                    if (signin.logout()) {
+                        App.prefs.userId = ""
+                        App.prefs.userPw = ""
+
+                        startActivity(intent)
+                    }
                 }
                 .setNegativeButton("닫기") {dialog, id ->
 

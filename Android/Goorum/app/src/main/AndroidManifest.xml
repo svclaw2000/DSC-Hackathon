@@ -10,7 +10,8 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Goorum">
+        android:theme="@style/Theme.Goorum"
+        android:name=".App">
         <activity android:name=".my.PasswordActivity" />
         <activity android:name=".my.NicknameActivity" />
         <activity android:name=".SignupActivity" />

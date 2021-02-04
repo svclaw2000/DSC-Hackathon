@@ -41,8 +41,9 @@ class LoginActivity : AppCompatActivity() {
 
         val signin = Signin(email, password)
 
-//        if (signin.matchesExistingAccount()) {
-        if (true) {
+        if (signin.matchesExistingAccount()) {
+            App.prefs.userId = email
+            App.prefs.userPw = password
             startActivity(intent)
         } else {
             val dialog = LoginFailureFragment()

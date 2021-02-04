@@ -31,11 +31,6 @@ class NotificationActivity : AppCompatActivity() {
         recyclerView.layoutManager = lm
         recyclerView.setHasFixedSize(false)
 
-//        binding.lvNotification.setOnItemClickListener { adapterView: AdapterView<*>, view1: View, i: Int, l: Long ->
-//            Toast.makeText(applicationContext,
-//                adapter.getItem(i).getCategory(), Toast.LENGTH_LONG).show()
-//        }
-
         binding.ivNotifiBack.setOnClickListener {
             onBackPressed()
         }

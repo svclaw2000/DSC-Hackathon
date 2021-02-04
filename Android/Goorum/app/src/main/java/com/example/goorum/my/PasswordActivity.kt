@@ -7,7 +7,6 @@ import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.example.goorum.R
-import com.example.goorum.data.Signin
 import com.example.goorum.databinding.ActivityPasswordBinding
 
 class PasswordActivity : AppCompatActivity() {

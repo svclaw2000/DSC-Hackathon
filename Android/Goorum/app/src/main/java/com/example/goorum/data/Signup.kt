@@ -1,5 +1,6 @@
 package com.example.goorum.data
 
+import android.util.Log
 import com.example.goorum.utils.HttpHelper
 import com.example.goorum.utils.HttpMethod
 import com.google.gson.JsonObject
@@ -9,16 +10,19 @@ import kotlinx.coroutines.launch
 
 
 class Signup(val email: String, val password: String, val nickname: String) {
-    fun exists(): Boolean {
+    val TAG = "Signup"
+
+    fun notExist(): Boolean {
         // 중복되는 이메일이 있는지 검사
         var res = false
-        val url = "/check-duplicate"
+        val url = "/member/check-duplicate"
 
         val data = JsonObject()
-        data.addProperty("id", "email")
+        data.addProperty("id", email)
 
         GlobalScope.launch(Dispatchers.Main) {
-            val result = HttpHelper.request(url, HttpMethod.POST, data)
+            val result = HttpHelper.request(url, HttpMethod.GET, data)
+            Log.d(TAG, result.toString())
             if (result["result"].asInt == 1) {
                 res = true
             }
@@ -30,7 +34,7 @@ class Signup(val email: String, val password: String, val nickname: String) {
     fun register(): Boolean {
         // 회원 등록
         var res = false
-        val url = "/join"
+        val url = "/member/join"
 
         val data = JsonObject()
         data.addProperty("id", email)
@@ -40,6 +44,7 @@ class Signup(val email: String, val password: String, val nickname: String) {
 
         GlobalScope.launch(Dispatchers.Main) {
             val result = HttpHelper.request(url, HttpMethod.POST, data)
+            Log.d(TAG, result.toString())
             if (result["result"].asInt == 1) {
                 res = true
             }
