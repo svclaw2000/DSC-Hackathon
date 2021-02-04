@@ -34,8 +34,8 @@ public class MemberController {
     }
 
     @PostMapping("/login")
-    public void login(@RequestParam("id") String id,
-                      @RequestParam("password") String pwd,
+    public void login(@RequestParam String id,
+                      @RequestParam String pwd,
                       HttpServletRequest request,
                       HttpServletResponse response) throws IOException, NoSuchAlgorithmException {
 
@@ -45,21 +45,24 @@ public class MemberController {
         if (Objects.isNull(loginMember)) {
             res.put(RESULT, FAIL);
             log.info("** [" + id + "] Failed to log in **");
+            return;
         } else {
             HttpSession session = request.getSession();
             session.setAttribute("loginMember", loginMember);
             if (loginMember.getMemberId() == 0) {
                 res.put(RESULT, ADMIN_ID);
                 log.info("** ADMIN has logged in **");
+                return;
             } else {
                 res.put(RESULT, SUCCESS);
-                res.put("nick", loginMember.getNickname());
                 log.info("** [" + id + "] has logged in **");
             }
         }
 
         response.setContentType("application/json; charset=utf-8");
         response.getWriter().print(res);
+
+        return;
     }
 
     @GetMapping("/logout")
@@ -76,7 +79,6 @@ public class MemberController {
             log.info("** [" + member.getId() + "] has logged out **");
             session.invalidate();
             res.put(RESULT, SUCCESS);
-            res.put("nick", member.getNickname());
         }
         response.setContentType("application/json; charset=utf-8");
         response.getWriter().print(res);
@@ -84,6 +86,7 @@ public class MemberController {
 
     @GetMapping("/check-duplicate")
     public void checkDuplicate(@RequestParam String id,
+                               HttpServletRequest request,
                                HttpServletResponse response) throws IOException {
         JSONObject res = new JSONObject();
 
@@ -96,6 +99,8 @@ public class MemberController {
         }
         response.setContentType("application/json; charset=utf-8");
         response.getWriter().print(res);
+
+        return;
     }
 
     @PostMapping("/join")

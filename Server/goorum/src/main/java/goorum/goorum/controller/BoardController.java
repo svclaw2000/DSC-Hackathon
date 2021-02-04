@@ -10,6 +10,7 @@ import goorum.goorum.util.Conversion;
 import goorum.goorum.util.CurrentArticle;
 import goorum.goorum.util.ErrorPage;
 import lombok.extern.slf4j.Slf4j;
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -36,6 +37,7 @@ public class BoardController {
     private final String DEFAULT_LIST_SIZE = "10";
     private final String ON = "ON";
     private final int MAIN_PAGE= 1;
+    private final int PARENT = 0;
 
     @Autowired
     private BoardService boardService;
@@ -50,11 +52,16 @@ public class BoardController {
     private MemberLikeBoardService memberLikeBoardService;
 
     @GetMapping
-    public ModelAndView showBoard(
+    public void showBoard(
             @RequestParam(defaultValue = DEFAULT_CATEGORY, required = false) String category,
             @RequestParam(defaultValue = DEFAULT_PAGE, required = false) Integer page,
-            @RequestParam(defaultValue = DEFAULT_LIST_SIZE, required = false) Integer size) {
+            @RequestParam(defaultValue = DEFAULT_LIST_SIZE, required = false) Integer size,
+            HttpServletRequest request,
+            HttpServletResponse response) throws IOException {
+
+        JSONObject res = new JSONObject();
         ModelAndView mav = new ModelAndView();
+
         Page<Boardlist> boardlistPage = boardService.getList(category, page - 1, size);
         List<Boardlist> boards = boardlistPage.getContent();
 
@@ -63,25 +70,60 @@ public class BoardController {
         int totalPage = boardlistPage.getTotalPages();
         int startPage = Conversion.calcStartPage(page);
 
-        if ( category.equals(DEFAULT_CATEGORY) &&
-                page == MAIN_PAGE ) {
+        if ( category.equals(DEFAULT_CATEGORY) && page == MAIN_PAGE ) {
             List<Boardlist> notices = boardService.getNotices();
             List<Boardlist> topLikes = boardService.getTopLikes();
             boardService.convertArticleFormat(notices);
             boardService.convertArticleFormat(topLikes);
-            mav.addObject("notices", notices);
-            mav.addObject("topLikes", topLikes);
+
+            JSONArray likeBoardArray = new JSONArray();
+            for(int i=0; i<topLikes.size(); i++){
+                JSONObject data= new JSONObject();
+                data.put("boardId",boards.get(i).getBoardId());
+                data.put("category",boards.get(i).getCategory());
+                data.put("sector",boards.get(i).getSector());
+                data.put("company",boards.get(i).getCompany());
+                data.put("title",boards.get(i).getTitle());
+                data.put("content",boards.get(i).getContent());
+                data.put("writerId",boards.get(i).getWriterId());
+                data.put("writerNickname",boards.get(i).getWriterNickname());
+                data.put("date",boards.get(i).getDate());
+                data.put("likes",boards.get(i).getLikes());
+                data.put("replies",boards.get(i).getReplies());
+                likeBoardArray.add(i,data);
+            }
+            res.put("topLikes",likeBoardArray);
         }
 
-        mav.setViewName("board");
-        mav.addObject("boards", boards);
-        mav.addObject("categories", categories);
-        mav.addObject("selectCategory", category);
-        mav.addObject("selectSize", size);
-        mav.addObject("curPage", page);
-        mav.addObject("totalPage", totalPage);
-        mav.addObject("startPage", startPage);
-        return mav;
+        JSONArray boardArray = new JSONArray();
+
+        for(int i=0; i<boards.size(); i++){
+            JSONObject data= new JSONObject();
+            data.put("boardId",boards.get(i).getBoardId());
+            data.put("category",boards.get(i).getCategory());
+            data.put("sector",boards.get(i).getSector());
+            data.put("company",boards.get(i).getCompany());
+            data.put("title",boards.get(i).getTitle());
+            data.put("content",boards.get(i).getContent());
+            data.put("writerId",boards.get(i).getWriterId());
+            data.put("writerNickname",boards.get(i).getWriterNickname());
+            data.put("date",boards.get(i).getDate());
+            data.put("likes",boards.get(i).getLikes());
+            data.put("replies",boards.get(i).getReplies());
+            boardArray.add(i,data);
+        }
+
+        res.put("board",boardArray);
+        res.put("category",category);
+        res.put("selectSize",size);
+        res.put("curPage",page);
+        res.put("totalPage",totalPage);
+        res.put("startPage",startPage);
+
+        response.setContentType("application/json; charset=utf-8");
+        response.getWriter().print(res);
+
+        return;
     }
 
     @GetMapping("/write")
@@ -95,6 +137,7 @@ public class BoardController {
         }
         mav.setViewName("write_form");
         mav.addObject("categories", categoryService.getList());
+
         return mav;
     }
 
@@ -124,8 +167,8 @@ public class BoardController {
 
     @GetMapping("/{idx}")
     public void showArticle(@PathVariable("idx") int boardId,
-                                    HttpServletRequest request,
-                                    HttpServletResponse response) throws IOException {
+                            HttpServletRequest request,
+                            HttpServletResponse response) throws IOException {
         JSONObject res = new JSONObject();
 
         Member member = (Member)request.getSession().getAttribute("loginMember");
@@ -145,9 +188,37 @@ public class BoardController {
         mav.addObject("replies", replies);
         mav.addObject("current", currentArticle);
 
-        res.put("article",article);
-        res.put("replies",replies);
-        res.put("current",currentArticle);
+        res.put("prev",currentArticle.getPrev());
+        res.put("next",currentArticle.getNext());
+        res.put("boardId",article.getBoardId());
+        res.put("category",article.getCategory());
+        res.put("sector",article.getSector());
+        res.put("company",article.getCompany());
+        res.put("title",article.getTitle());
+        res.put("content",article.getContent());
+        res.put("profile",article.getProfile());
+        res.put("writerId",article.getWriterId());
+        res.put("writerNickname",article.getWriterNickname());
+        res.put("date",article.getDate());
+        res.put("likes",article.getLikes());
+        res.put("replies",article.getReplies());
+
+        JSONArray replyArray = new JSONArray();
+
+        for(int i=0; i<replies.size(); i++){
+            JSONObject data= new JSONObject();
+            data.put("boardId",replies.get(i).getBoardId());
+            data.put("replyId",replies.get(i).getReplyId());
+            data.put("content",replies.get(i).getContent());
+            data.put("date",replies.get(i).getDate());
+            data.put("memberId",replies.get(i).getMemberId());
+            data.put("nickname",replies.get(i).getNickname());
+            data.put("profilePhoto",replies.get(i).getProfilePhoto());
+
+            replyArray.add(i,data);
+        }
+
+        res.put("reply",replyArray);
 
         response.setContentType("application/json; charset=utf-8");
         response.getWriter().print(res);
@@ -157,22 +228,22 @@ public class BoardController {
 
     @PostMapping("/write/reply")
     public void writeReply(@RequestParam int boardId,
-                                   @RequestParam int parent,
-                                   @RequestParam String content,
-                                   HttpServletRequest request,
-                                   HttpServletResponse response) throws IOException {
+                           @RequestParam String content,
+                           HttpServletRequest request,
+                           HttpServletResponse response) throws IOException {
+
         JSONObject res = new JSONObject();
         Member member = (Member)request.getSession().getAttribute("loginMember");
-        boolean result = replyService.writeReply(boardId, parent, content, member);
+        boolean result = replyService.writeReply(boardId, PARENT, content, member);
 
         if (!result) {
             res.put(RESULT, INVALID_APPROACH);
-            return;
         }
         ModelAndView mav = new ModelAndView();
         mav.setViewName("redirect:/board/"+boardId);
 
         res.put(RESULT, SUCCESS);
+
         response.setContentType("application/json; charset=utf-8");
         response.getWriter().print(res);
         return;
@@ -180,10 +251,10 @@ public class BoardController {
 
     @PostMapping("/delete/reply")
     public void deleteReply(@RequestParam int replyId,
-                                    @RequestParam int parent,
-                                    @RequestParam int boardId,
-                                    HttpServletRequest request,
-                                    HttpServletResponse response) throws IOException {
+                            @RequestParam int parent,
+                            @RequestParam int boardId,
+                            HttpServletRequest request,
+                            HttpServletResponse response) throws IOException {
 
         JSONObject res = new JSONObject();
         Member member = (Member)request.getSession().getAttribute("loginMember");
@@ -204,16 +275,14 @@ public class BoardController {
 
     @GetMapping("/modify/{idx}")
     public void showModifyForm(@PathVariable("idx") long boardId,
-                                       HttpServletRequest request,
-                                       HttpServletResponse response) throws IOException {
+                               HttpServletRequest request,
+                               HttpServletResponse response) throws IOException {
         JSONObject res = new JSONObject();
 
         Boardlist article = boardService.getPostById(boardId);
         Member loginMember = (Member) request.getSession().getAttribute("loginMember");
 
-        if ( isNull(article) ||
-                isNull(loginMember) ||
-                (loginMember.getMemberId() != article.getWriterId()) ) {
+        if ( isNull(article) || isNull(loginMember) || (loginMember.getMemberId() != article.getWriterId()) ) {
             res.put(RESULT, FAIL);
             return;
         }
@@ -241,6 +310,7 @@ public class BoardController {
                        @RequestParam String company,
                        HttpServletRequest request,
                        HttpServletResponse response) throws IOException {
+
         Board article = boardService.getBoardById(boardId);
         Member loginMember = (Member) request.getSession().getAttribute("loginMember");
         JSONObject res = new JSONObject();
@@ -266,6 +336,7 @@ public class BoardController {
                           @RequestParam String flag,
                           HttpServletRequest request,
                           HttpServletResponse response) throws IOException {
+
         JSONObject res = new JSONObject();
         Member loginMember = (Member) request.getSession().getAttribute("loginMember");
 
@@ -290,16 +361,14 @@ public class BoardController {
 
     @PostMapping("/delete")
     public void deleteArticle(@RequestParam long boardId,
-                                      HttpServletRequest request,
-                                      HttpServletResponse response) throws IOException {
+                              HttpServletRequest request,
+                              HttpServletResponse response) throws IOException {
+
         JSONObject res = new JSONObject();
         Board article = boardService.getBoardById(boardId);
         Member loginMember = (Member) request.getSession().getAttribute("loginMember");
 
-        if ( isNull(article) ||
-                isNull(loginMember) ||
-                (loginMember.getMemberId() != article.getWriter() &&
-                        loginMember.getMemberId() != ADMIN_ID )) {
+        if ( isNull(article) || isNull(loginMember) || (loginMember.getMemberId() != article.getWriter() && loginMember.getMemberId() != ADMIN_ID )) {
             res.put(RESULT,INVALID_APPROACH);
             return;
         }
@@ -311,6 +380,7 @@ public class BoardController {
 
         ModelAndView mav = new ModelAndView();
         mav.setViewName("redirect:/board");
+
         return;
     }
 }

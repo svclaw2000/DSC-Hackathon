@@ -1,5 +1,6 @@
 package goorum.goorum.controller;
 
+import goorum.goorum.domain.Board;
 import goorum.goorum.domain.Boardlist;
 import goorum.goorum.domain.Member;
 import goorum.goorum.domain.Mypage;
@@ -9,6 +10,7 @@ import goorum.goorum.service.MypageService;
 import goorum.goorum.service.ReplyService;
 import goorum.goorum.util.Conversion;
 import lombok.extern.slf4j.Slf4j;
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,6 +22,8 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import static goorum.goorum.util.Constants.*;
@@ -87,13 +91,30 @@ public class MypageController {
         res.put("nick", nickname);
         res.put("boardNum", boardNum); // 게시글 수
         res.put("replyNum", replyNum); // 답변 수
-        res.put("boards",boards); // 내가 쓴 게시글
+
+        JSONArray boardArray = new JSONArray();
+
+        for(int i=0; i<boards.size(); i++){
+            JSONObject data= new JSONObject();
+            data.put("boardId",boards.get(i).getBoardId());
+            data.put("category",boards.get(i).getCategory());
+            data.put("sector",boards.get(i).getSector());
+            data.put("company",boards.get(i).getCompany());
+            data.put("title",boards.get(i).getTitle());
+            data.put("content",boards.get(i).getContent());
+            data.put("writerId",boards.get(i).getWriterId());
+            data.put("writerNickname",boards.get(i).getWriterNickname());
+            data.put("date",boards.get(i).getDate());
+            data.put("likes",boards.get(i).getLikes());
+            data.put("replies",boards.get(i).getReplies());
+            boardArray.add(i,data);
+        }
+        res.put("board",boardArray);
 
         response.setContentType("application/json; charset=utf-8");
         response.getWriter().print(res);
 
         return;
-
     }
 
     @GetMapping("/show-profile")
