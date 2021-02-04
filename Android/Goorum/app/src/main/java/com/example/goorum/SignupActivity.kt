@@ -101,7 +101,8 @@ class SignupActivity : AppCompatActivity() {
         submit.nickname = nickname
         // TODO: server로 전달
 
-        startActivity(intent)
+//        startActivity(intent)
+        onBackPressed()
     }
 
     fun isValidEmail(str: String): Boolean{

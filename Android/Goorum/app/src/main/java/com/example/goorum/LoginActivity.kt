@@ -30,7 +30,7 @@ class LoginActivity : AppCompatActivity() {
             }
         }
         binding.tvSignUp.setOnClickListener {
-            val intent = Intent(applicationContext, SignupActivity::class.java)
+            val intent = Intent(this, SignupActivity::class.java)
             startActivity(intent)
             overridePendingTransition(R.anim.slide_up, R.anim.stay)
         }

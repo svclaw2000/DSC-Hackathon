@@ -1,7 +1,5 @@
 package com.example.goorum.data
 
-import org.json.JSONObject
-
 
 class Signup() {
     lateinit var email: String
@@ -9,10 +7,16 @@ class Signup() {
     lateinit var nickname: String
 
     fun exists(): Boolean {
+        // 중복되는 이메일이 있는지 검사
        return true
     }
 
-    fun register() {
+    fun setInformations() {
+        // 회원 등록
+    }
+
+    fun setNickname() {
+        // 닉네임 설정
     }
 }
 
