@@ -48,13 +48,13 @@ class PasswordActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
         super.onBackPressed()
-        overridePendingTransition(R.anim.slide_down, R.anim.stay)
+        overridePendingTransition(R.anim.stay, R.anim.slide_down)
     }
 
     fun comparePassword(): Boolean {
-        val signin = Signin()
-        if (signin.matchesCurPassword(etCurPassword.text.toString()))
-            return true
+//        val signin = Signin()
+//        if (signin.matchesCurPassword(etCurPassword.text.toString()))
+//            return true
         return false
     }
 }

@@ -53,10 +53,10 @@ class NicknameActivity : AppCompatActivity() {
     private fun onSetNickname() {
         // TODO: 서버에 전달
         val strNickname = etNickname.text.toString()
-        val signup = Signup()
+//        val signup = Signup()
 
-        signup.nickname = strNickname
-        signup.setNickname()
+//        signup.nickname = strNickname
+//        signup.setNickname()
 
         onBackPressed()
     }

@@ -14,8 +14,6 @@ class LoginActivity : AppCompatActivity() {
     lateinit var etPassword: EditText
     // TODO: sharedPreference
 
-    val signin = Signin()
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil
@@ -41,10 +39,10 @@ class LoginActivity : AppCompatActivity() {
         val email = etEmail.text.toString()
         val password = etPassword.text.toString()
 
-        signin.email = email
-        signin.password = password
+        val signin = Signin(email, password)
 
-        if (signin.matchesExistingAccount()) {
+//        if (signin.matchesExistingAccount()) {
+        if (true) {
             startActivity(intent)
         } else {
             val dialog = LoginFailureFragment()

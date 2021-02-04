@@ -10,7 +10,7 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".like.NotificationActivity">
+        tools:context=".likes.NotificationActivity">
 
         <ImageView
             android:id="@+id/ivNotifiBack"
@@ -34,7 +34,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="@+id/ivNotifiBack" />
 
-        <ListView
+        <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/lvNotification"
             android:layout_width="match_parent"
             android:layout_height="0dp"
@@ -42,6 +42,6 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/ivNotifiBack"></ListView>
+            app:layout_constraintTop_toBottomOf="@+id/ivNotifiBack" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

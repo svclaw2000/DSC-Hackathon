@@ -25,7 +25,6 @@ class SignupActivity : AppCompatActivity() {
                 "[a-zA-Z0-9][a-zA-Z0-9\\-]{0,25}" +
                 ")+"
     )
-    val submit = Signup();
 
     lateinit var binding: ActivitySignupBinding
     lateinit var email: String
@@ -96,13 +95,12 @@ class SignupActivity : AppCompatActivity() {
         intent.flags = (Intent.FLAG_ACTIVITY_NEW_TASK
                 or Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP)
 
-        submit.email = email
-        submit.password = password
-        submit.nickname = nickname
-        // TODO: server로 전달
-
-//        startActivity(intent)
-        onBackPressed()
+        val signup = Signup(email, password, nickname)
+        if(signup.register()) {
+            onBackPressed()
+        } else {
+            Log.e(TAG, "Sign up failed")
+        }
     }
 
     fun isValidEmail(str: String): Boolean{
