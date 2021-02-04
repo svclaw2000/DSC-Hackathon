@@ -3,11 +3,12 @@ package goorum.goorum.controller;
 import goorum.goorum.domain.Member;
 import goorum.goorum.service.MemberService;
 import goorum.goorum.repository.MemberRepository;
+
 import lombok.extern.slf4j.Slf4j;
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import org.json.simple.JSONObject;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -16,15 +17,12 @@ import java.security.NoSuchAlgorithmException;
 import java.util.List;
 import java.util.Objects;
 
+import static goorum.goorum.util.Constants.*;
+
 @Slf4j
 @RestController
 @RequestMapping("/member")
 public class MemberController {
-    private final int DUPLICATE_ID = -3;
-    private final int INVALID_APPROACH = -2;
-    private final int FAIL = -1;
-    private final int ADMIN = 0;
-    private final int SUCCESS = 1;
 
     @Autowired
     private MemberService memberService;
@@ -45,24 +43,26 @@ public class MemberController {
         JSONObject res = new JSONObject();
 
         if (Objects.isNull(loginMember)) {
-            res.put("result", FAIL);
+            res.put(RESULT, FAIL);
             log.info("** [" + id + "] Failed to log in **");
+            return;
         } else {
             HttpSession session = request.getSession();
             session.setAttribute("loginMember", loginMember);
             if (loginMember.getMemberId() == 0) {
-                res.put("result", ADMIN);
+                res.put(RESULT, ADMIN_ID);
                 log.info("** ADMIN has logged in **");
-            }
-            else {
-                res.put("result", SUCCESS);
-                res.put("nick", loginMember.getNickname());
+                return;
+            } else {
+                res.put(RESULT, SUCCESS);
                 log.info("** [" + id + "] has logged in **");
             }
         }
 
         response.setContentType("application/json; charset=utf-8");
         response.getWriter().print(res);
+
+        return;
     }
 
     @GetMapping("/logout")
@@ -74,12 +74,11 @@ public class MemberController {
 
         if (Objects.isNull(member)) {
             log.warn("!! Invalid approach !!");
-            res.put("result", INVALID_APPROACH);
+            res.put(RESULT, INVALID_APPROACH);
         } else {
             log.info("** [" + member.getId() + "] has logged out **");
             session.invalidate();
-            res.put("result", SUCCESS);
-            res.put("nick", member.getNickname());
+            res.put(RESULT, SUCCESS);
         }
         response.setContentType("application/json; charset=utf-8");
         response.getWriter().print(res);
@@ -87,18 +86,21 @@ public class MemberController {
 
     @GetMapping("/check-duplicate")
     public void checkDuplicate(@RequestParam String id,
+                               HttpServletRequest request,
                                HttpServletResponse response) throws IOException {
         JSONObject res = new JSONObject();
 
         if (memberService.isDuplicate(id)) {
-            res.put("result", DUPLICATE_ID);
+            res.put(RESULT, FAIL);
             log.info("Duplicate id : " + id);
         } else {
-            res.put("result", SUCCESS);
+            res.put(RESULT, SUCCESS);
             log.info("Available id : " + id);
         }
         response.setContentType("application/json; charset=utf-8");
         response.getWriter().print(res);
+
+        return;
     }
 
     @PostMapping("/join")
@@ -112,13 +114,22 @@ public class MemberController {
         try {
             Member newMember = memberService.join(id, pwd, email, nick);
             log.info("New Member[ " + newMember.getMemberId() + " : " + id + " ] has just signed up.");
-            res.put("result", SUCCESS);
+            res.put(RESULT, SUCCESS);
         } catch (Exception e) {
             log.warn(e.toString());
-            res.put("result", FAIL);
+            res.put(RESULT, FAIL);
         }
 
         response.setContentType("application/json; charset=utf-8");
         response.getWriter().print(res);
+    }
+
+    @GetMapping("/get-profile")
+    public void getProfilePhoto(@RequestParam String middlePath,
+                                @RequestParam String imageFileName,
+                                HttpServletRequest request,
+                                HttpServletResponse response) throws IOException {
+        request.setCharacterEncoding("utf-8");
+        response.setContentType("text/html; charset=utf-8");
     }
 }

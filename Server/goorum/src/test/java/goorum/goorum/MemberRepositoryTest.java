@@ -92,10 +92,7 @@ public class MemberRepositoryTest {
         if (loginMember.isPresent()) {
             Member member = loginMember.get();
             log.info("Successfully logged in");
-            log.info("Attendance before update : " + member.getAttendance());
-            member.setAttendance(member.getAttendance() + 1);
             member = memberRepository.save(member);
-            log.info("Attendance after update : " + member.getAttendance());
         } else {
             log.warn("Login failed");
         }

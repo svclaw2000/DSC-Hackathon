@@ -1,0 +1,137 @@
+package goorum.goorum;
+
+import goorum.goorum.domain.Board;
+import goorum.goorum.domain.Boardlist;
+import goorum.goorum.domain.Replylist;
+import goorum.goorum.repository.BoardRepository;
+import goorum.goorum.repository.BoardlistRepository;
+import goorum.goorum.repository.ReplylistRepository;
+import lombok.extern.slf4j.Slf4j;
+import org.junit.Assert;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.test.context.junit4.SpringRunner;
+
+import javax.transaction.Transactional;
+import java.util.List;
+import java.util.Optional;
+
+@Slf4j
+@RunWith(SpringRunner.class)
+@SpringBootTest
+public class BoardRepositoryTest {
+
+    @Autowired
+    private BoardRepository boardRepository;
+
+    @Autowired
+    private BoardlistRepository boardlistRepository;
+
+    @Autowired
+    private ReplylistRepository replylistRepository;
+
+    @Test
+    @Transactional
+    public void create() {
+        String title = "이건 제목입니다"; // 최대 60자
+        String content = "이건 내용입니다";
+        long category = 2;
+        long writer = 22;
+        Board board = Board.builder()
+                .title(title)
+                .content(content)
+                .writer(writer)
+                .category(category)
+                .build();
+
+        try {
+            Board newBoard = boardRepository.save(board);
+            log.info("insert success : " + newBoard);
+        } catch (Exception e) {
+            log.warn(e.toString());
+        }
+    }
+
+    @Test
+    public void read() {
+        Optional<Board> board = boardRepository.findById(1L);
+        board.ifPresent(selectBoard -> {
+            System.out.println("board:" + selectBoard);
+        });
+    }
+
+    @Test
+    public void readAll() {
+        List<Boardlist> boards = boardlistRepository.findAll();
+        boards.forEach(board -> log.info(board.toString()));
+    }
+
+    @Test
+    public void readPage() {
+        String category = "잡담";
+        int page = 0;
+        int size = 3;
+        PageRequest pageRequest = PageRequest.of(page, size);
+        List<Boardlist> boards = boardlistRepository.findAllByCategory(category, pageRequest).getContent();
+        boards.forEach(board -> log.info(board.toString()));
+    }
+
+    @Test
+    public void viewArticle() {
+        long board_id = 6L;
+        Optional<Boardlist> board = boardlistRepository.findById(board_id);
+        if (board.isPresent()) {
+            log.info(board.get().toString());
+            List<Replylist> replies = replylistRepository.findAllByBoardId(board_id);
+            replies.forEach(reply -> log.info(reply.toString()));
+        } else {
+            log.info("Board id = '" + board_id + "' is not exist.");
+        }
+    }
+
+    @Test
+    public void selectPrevAndNextArticle() {
+        long board_id = 7L;
+        List<Board> boards = boardRepository.findPrevAndNextBoardIdByBoardId(board_id);
+        Assert.assertNotEquals(boards.size(), 0);
+        if (boards.size() == 1) {
+            log.info("?? : " + boards.get(0).getBoardId());
+        } else {
+            long prevArticle = boards.get(0).getBoardId();
+            long nextArticle = boards.get(1).getBoardId();
+            log.info("prev Article No : " + prevArticle);
+            log.info("next Article No : " + nextArticle);
+        }
+    }
+
+    @Test
+
+    public void deleteArticle() {
+        long board_id = 2L;
+        try {
+            boardRepository.deleteById(board_id);
+        } catch (Exception e) {
+            log.error(e.toString());
+            log.error( "There isn't a board no." + board_id);
+        }
+    }
+
+
+    @Test
+    public void selectNotice() {
+        String notice = "공지";
+        List<Boardlist> notices = boardlistRepository.findAllByCategory(notice);
+        log.info(notices.toString());
+    }
+
+    @Test
+    public void selectToplikes() {
+        List<Boardlist> topLikes = boardlistRepository.findTopLikes();
+        topLikes.forEach(l -> {
+            log.info(l.getBoardId() +": "+ l.getTitle() +" ("+l.getLikes()+")");
+        });
+    }
+}

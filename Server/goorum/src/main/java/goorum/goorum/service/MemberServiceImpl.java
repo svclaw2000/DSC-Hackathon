@@ -29,7 +29,6 @@ public class MemberServiceImpl implements MemberService {
         }
 
         Member member = loginMember.get();
-        member.setAttendance(member.getAttendance() + 1);
         memberRepository.save(member);
 
         return member;
@@ -51,5 +50,17 @@ public class MemberServiceImpl implements MemberService {
                         .nickname(nick)
                         .build()
         );
+    }
+
+    @Override
+    public boolean setProfilePhoto(long memberId, String profilePath) {
+        Optional<Member> memberOptional = memberRepository.findById(memberId);
+        if (!memberOptional.isPresent()) {
+            return false;
+        }
+        Member member = memberOptional.get();
+        member.setProfilePhoto(profilePath);
+        memberRepository.save(member);
+        return true;
     }
 }
