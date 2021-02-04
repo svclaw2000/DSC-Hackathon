@@ -30,12 +30,14 @@
             android:layout_weight="1" />
         
         <ImageView
+            android:id="@+id/btn_search"
             android:layout_width="@dimen/main_icon_size_20dp"
             android:layout_height="@dimen/main_icon_size_20dp"
             android:src="@drawable/ic_search"
             android:layout_margin="@dimen/main_icon_margin_10dp" />
 
         <ImageView
+            android:id="@+id/btn_my"
             android:layout_width="@dimen/main_icon_size_20dp"
             android:layout_height="@dimen/main_icon_size_20dp"
             android:src="@drawable/ic_mypage"

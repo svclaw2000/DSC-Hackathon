@@ -12,6 +12,7 @@
         android:padding="@dimen/page_top_bar_padding_15dp">
 
         <ImageView
+            android:id="@+id/btn_back"
             android:layout_width="@dimen/page_icon_size_20dp"
             android:layout_height="@dimen/page_icon_size_20dp"
             android:src="@drawable/ic_arrow"

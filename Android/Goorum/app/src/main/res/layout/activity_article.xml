@@ -12,13 +12,14 @@
         android:padding="@dimen/page_top_bar_padding_15dp">
 
         <ImageView
+            android:id="@+id/btn_back"
             android:layout_width="@dimen/page_icon_size_20dp"
             android:layout_height="@dimen/page_icon_size_20dp"
             android:src="@drawable/ic_arrow"
             android:layout_gravity="start|center"/>
 
         <TextView
-            android:id="@+id/tv_board_title"
+            android:id="@+id/tv_board_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -47,7 +48,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 tools:text="글쓴이"
-                android:textSize="@dimen/article_text_size_12sp"
+                android:textSize="@dimen/article_text_size_13sp"
                 android:textColor="@color/board_text"
                 android:textStyle="bold"/>
 
@@ -56,7 +57,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 tools:text="20/02/01 12:00"
-                android:textSize="@dimen/article_text_size_10sp"
+                android:textSize="@dimen/article_text_size_11sp"
                 android:textColor="@color/main_article_text_gray"/>
         </LinearLayout>
 
@@ -90,7 +91,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         tools:text="내용"
-        android:textSize="@dimen/article_text_size_12sp"
+        android:textSize="@dimen/article_text_size_13sp"
         android:textColor="@color/board_text"
         android:layout_marginTop="@dimen/article_inform_margin_v_5dp"
         android:layout_marginStart="@dimen/article_outer_margin_h_20dp"
@@ -115,7 +116,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             tools:text="1"
-            android:textSize="@dimen/article_text_size_12sp"
+            android:textSize="@dimen/article_text_size_13sp"
             android:textColor="@color/board_text"
             android:layout_marginStart="@dimen/article_count_margin_h_5dp"
             android:layout_marginEnd="@dimen/article_count_margin_h_5dp"/>
@@ -130,7 +131,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             tools:text="1"
-            android:textSize="@dimen/article_text_size_12sp"
+            android:textSize="@dimen/article_text_size_13sp"
             android:textColor="@color/board_text"
             android:layout_marginStart="@dimen/article_count_margin_h_5dp"
             android:layout_marginEnd="@dimen/article_count_margin_h_5dp" />
@@ -141,5 +142,42 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_reply"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+
+    <View style="@style/HorizontalSplit" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="@dimen/reply_input_margin_10dp"
+        android:layout_marginBottom="@dimen/reply_input_margin_10dp"
+        android:layout_marginStart="@dimen/reply_input_margin_10dp"
+        android:layout_marginEnd="@dimen/reply_input_margin_10dp" >
+
+        <EditText
+            android:id="@+id/et_reply"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="@string/reply_hint"
+            android:textSize="@dimen/reply_text_size_15sp"
+            android:textColor="@color/board_text"
+            android:paddingStart="@dimen/reply_input_padding_h_10dp"
+            android:paddingEnd="@dimen/reply_input_padding_h_10dp" />
+
+        <TextView
+            android:id="@+id/btn_reply"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/btn_send"
+            android:text="@string/send"
+            android:textSize="@dimen/reply_text_size_15sp"
+            android:textColor="@color/board_text"
+            android:paddingTop="@dimen/btn_padding_v_5dp"
+            android:paddingBottom="@dimen/btn_padding_v_5dp"
+            android:paddingStart="@dimen/btn_padding_h_10dp"
+            android:paddingEnd="@dimen/btn_padding_h_10dp"/>
+    </LinearLayout>
 </LinearLayout>

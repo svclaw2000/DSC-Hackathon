@@ -4,6 +4,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.databinding.DataBindingUtil
+import com.example.goorum.Data.Member
 import com.example.goorum.databinding.ActivityLoginBinding
 
 class LoginActivity : AppCompatActivity() {
@@ -14,6 +15,7 @@ class LoginActivity : AppCompatActivity() {
         binding = DataBindingUtil
             .setContentView<ActivityLoginBinding>(this, R.layout.activity_login)
         binding.bLogin.setOnClickListener {
+            Member.login()
             val intent = Intent(applicationContext, MainActivity::class.java)
             startActivity(intent)
         }

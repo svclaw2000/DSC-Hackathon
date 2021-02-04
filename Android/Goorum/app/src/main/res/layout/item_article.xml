@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
@@ -82,7 +83,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:text="공감 "
+            android:text="@string/like"
             android:textSize="@dimen/main_article_text_size_10sp"
             android:textColor="@color/main_article_text_gray" />
 
@@ -93,12 +94,13 @@
             tools:text="1"
             android:textSize="@dimen/main_article_text_size_10sp"
             android:textColor="@color/main_article_text_gray"
-            android:layout_marginEnd="@dimen/main_article_like_margin_e_5dp" />
+            android:layout_marginStart="@dimen/main_article_like_margin_h_5dp"
+            android:layout_marginEnd="@dimen/main_article_like_margin_h_5dp" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:text="댓글 "
+            android:text="@string/reply"
             android:textSize="@dimen/main_article_text_size_10sp"
             android:textColor="@color/main_article_text_gray" />
 
@@ -108,6 +110,8 @@
             android:layout_height="wrap_content"
             tools:text="1"
             android:textSize="@dimen/main_article_text_size_10sp"
-            android:textColor="@color/main_article_text_gray" />
+            android:textColor="@color/main_article_text_gray"
+            android:layout_marginStart="@dimen/main_article_like_margin_h_5dp"
+            android:layout_marginEnd="@dimen/main_article_like_margin_h_5dp" />
     </LinearLayout>
 </LinearLayout>

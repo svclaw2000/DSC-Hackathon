@@ -15,4 +15,7 @@
     <color name="main_article_text_gray">#838383</color>
     <color name="main_article_stroke">#EAEAEA</color>
     <color name="split_line">#646464</color>
+
+    <color name="btn_stroke">#CBFFE2</color>
+    <color name="btn">#E8FFF2</color>
 </resources>

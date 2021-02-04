@@ -13,7 +13,7 @@ import java.util.*
 
 class HttpHelper {
     companion object {
-        const val SERVER_URL = "http://641718c273dd.ngrok.io"
+        const val SERVER_URL = "http://8685f73e0a44.ngrok.io"
         const val TEST_MODE = false
 
         var mSession = false
