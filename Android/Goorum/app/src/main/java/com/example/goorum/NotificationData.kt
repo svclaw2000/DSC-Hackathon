@@ -1,9 +1,14 @@
 package com.example.goorum
 
-class NotificationData(category: String, content: String, time: String) {
-    private val category: String = category
-    private val content: String = content
-    private val time: String = time
+class NotificationData(private val writer: String, private val title: String, private val category: String,
+                       private val content: String, private val time: String) {
+    fun getWriter(): String {
+        return writer
+    }
+
+    fun getTitle(): String {
+        return title
+    }
 
     fun getCategory(): String {
         return category
@@ -13,7 +18,7 @@ class NotificationData(category: String, content: String, time: String) {
         return content
     }
 
-    fun getTime(): String {
+    fun getDate(): String {
         return time
     }
 }

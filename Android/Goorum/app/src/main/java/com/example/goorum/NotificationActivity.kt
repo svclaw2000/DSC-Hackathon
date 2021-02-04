@@ -37,9 +37,9 @@ class NotificationActivity : AppCompatActivity() {
 
         // TODO: 최신 100개
         for (i in 1..100) {
-            listData.add(NotificationData("게시판 $i",
+            listData.add(NotificationData("글쓴이", "제목 $i", "자유게시판",
                 "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur in porttitor eros. In eget nibh quam. Pellentesque in magna eros. Aliquam ac tempor ex, vel sollicitudin orci. Etiam posuere nibh eu quam placerat, et ullamcorper magna euismod. Nulla luctus leo vitae imperdiet efficitur. Donec ac libero ut turpis vehicula hendrerit.",
-            "02/02 15:10"))
+            "02/02"))
         }
     }
 }
