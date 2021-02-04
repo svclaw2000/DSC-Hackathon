@@ -1,4 +1,4 @@
-package com.example.goorum
+package com.example.goorum.like
 
 class NotificationData(private val writer: String, private val title: String, private val category: String,
                        private val content: String, private val time: String) {

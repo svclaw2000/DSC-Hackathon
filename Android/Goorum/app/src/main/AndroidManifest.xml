@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Goorum">
-        <activity android:name=".my.NicknameActivity"></activity>
+        <activity android:name=".my.PasswordActivity"></activity>
+        <activity android:name=".my.NicknameActivity" />
         <activity android:name=".SignupActivity" />
         <activity android:name=".LoginActivity">
             <intent-filter>
@@ -18,8 +19,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".NotificationActivity" />
-        <activity android:name=".MyActivity" />
+        <activity android:name=".like.NotificationActivity" />
+        <activity android:name=".my.MyActivity" />
         <activity android:name=".MainActivity" />
     </application>
 

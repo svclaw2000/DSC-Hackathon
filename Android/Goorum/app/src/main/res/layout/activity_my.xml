@@ -6,13 +6,13 @@
     <data>
         <variable
             name="my"
-            type="com.example.goorum.MyActivity" />
+            type="com.example.goorum.my.MyActivity" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:context=".MyActivity">
+        tools:context=".my.MyActivity">
 
         <ImageView
             android:id="@+id/ivMyBack"

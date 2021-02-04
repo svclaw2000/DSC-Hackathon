@@ -1,4 +1,4 @@
-package com.example.goorum
+package com.example.goorum.like
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.ImageView
 import android.widget.TextView
+import com.example.goorum.R
 
 class NotificationAdapter(context: Context?, data: ArrayList<NotificationData>?) : BaseAdapter() {
     var mContext: Context? = context

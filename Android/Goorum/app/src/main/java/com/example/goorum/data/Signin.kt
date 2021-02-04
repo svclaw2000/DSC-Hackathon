@@ -8,4 +8,10 @@ class Signin {
         if (email == password) return true
         return false
     }
+
+    fun matchesCurPassword(input: String): Boolean {
+        password = "00"
+        if (password == input) return true
+        return false
+    }
 }
