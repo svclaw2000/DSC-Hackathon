@@ -1,20 +1,20 @@
 package com.example.goorum.Utils
 
+import android.util.Log
 import com.google.gson.JsonObject
 import com.google.gson.JsonParser
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import java.io.BufferedReader
-import java.io.IOException
-import java.io.InputStream
-import java.io.InputStreamReader
+import java.io.*
 import java.lang.Exception
 import java.net.HttpURLConnection
 import java.net.URL
+import java.util.*
 
 class HttpHelper {
     companion object {
-        const val SERVER_URL = "http://example.com"
+        const val SERVER_URL = "http://641718c273dd.ngrok.io"
+        const val TEST_MODE = false
 
         suspend fun request(url: String, method: HttpMethod, data: JsonObject? = null) : JsonObject {
             val result = withContext(Dispatchers.IO) {
@@ -32,7 +32,18 @@ class HttpHelper {
                     if (method == HttpMethod.POST) {
                         httpConn.doOutput = true
                         val outputStream = httpConn.outputStream
-                        outputStream.write(data.toString().toByteArray())
+
+                        val data = data ?: JsonObject()
+                        val list = ArrayList<String>()
+                        for (key in data.keySet()) {
+                            list.add("${key}=${data[key].asString}")
+                        }
+
+                        val outputString = list.joinToString("&")
+
+                        Log.d("HttpOutput", outputString)
+
+                        outputStream.write(outputString.toByteArray())
                         outputStream.flush()
                     }
 
@@ -58,6 +69,7 @@ class HttpHelper {
                 ret
             }
 
+            Log.d("HttpInput", result)
             return JsonParser.parseString(result).asJsonObject
         }
 
