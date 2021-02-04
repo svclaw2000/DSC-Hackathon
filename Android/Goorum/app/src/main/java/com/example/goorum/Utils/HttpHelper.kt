@@ -21,25 +21,28 @@ class HttpHelper {
                 var httpConn : HttpURLConnection? = null
                 var ret = ""
 
+                val outputString = if (data != null) jsonToParamString(data) else null
+
                 try {
                     val inputStream : InputStream
-                    val urlConn = URL(SERVER_URL + url)
+
+                    val fullUrl = if (method == HttpMethod.GET && outputString != null) {
+                        "${SERVER_URL}${url}?${outputString}"
+                    } else {
+                        SERVER_URL + url
+                    }
+
+                    val urlConn = URL(fullUrl)
                     httpConn = urlConn.openConnection() as HttpURLConnection
 
                     httpConn.requestMethod = method.name
                     httpConn.doInput = true
 
-                    if (method == HttpMethod.POST) {
+                    Log.d("HttpInfo", "${method.name} ${fullUrl}")
+
+                    if ((method == HttpMethod.POST || method == HttpMethod.PUT) && outputString != null) {
                         httpConn.doOutput = true
                         val outputStream = httpConn.outputStream
-
-                        val data = data ?: JsonObject()
-                        val list = ArrayList<String>()
-                        for (key in data.keySet()) {
-                            list.add("${key}=${data[key].asString}")
-                        }
-
-                        val outputString = list.joinToString("&")
 
                         Log.d("HttpOutput", outputString)
 
@@ -85,6 +88,15 @@ class HttpHelper {
             }
             inputStream.close()
             return ret
+        }
+
+        fun jsonToParamString(json: JsonObject) : String {
+            val list = ArrayList<String>()
+            for (key in json.keySet()) {
+                list.add("${key}=${json[key].asString}")
+            }
+
+            return list.joinToString("&")
         }
     }
 }
