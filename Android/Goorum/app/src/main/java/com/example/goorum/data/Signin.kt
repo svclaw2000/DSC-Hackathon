@@ -4,9 +4,7 @@ import android.util.Log
 import com.example.goorum.utils.HttpHelper
 import com.example.goorum.utils.HttpMethod
 import com.google.gson.JsonObject
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.*
 
 class Signin(val email: String = "test", val password: String = "test") {
     val TAG = "Signin"
@@ -30,7 +28,7 @@ class Signin(val email: String = "test", val password: String = "test") {
         return res
     }
 
-    fun logout(): Boolean {
+    fun logout(): Boolean = runBlocking {
         var res = false
         val url = "/member/logout"
 
@@ -38,12 +36,13 @@ class Signin(val email: String = "test", val password: String = "test") {
 
         GlobalScope.launch(Dispatchers.Main) {
             val result = HttpHelper.request(url, HttpMethod.GET, data)
+
             Log.d(TAG, result.toString())
             if (result["result"].asInt == 1) {
                 res = true
             }
         }
 
-        return res
+        return@runBlocking res
     }
 }

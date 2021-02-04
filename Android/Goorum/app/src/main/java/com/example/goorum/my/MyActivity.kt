@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.example.goorum.R
 import com.example.goorum.databinding.ActivityMyBinding
+import com.example.goorum.likes.NotificationActivity
 
 class MyActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMyBinding
@@ -45,6 +46,9 @@ class MyActivity : AppCompatActivity() {
             val dialog = LogoutFragment()
             dialog.show(supportFragmentManager, "logout")
             // TODO: sharedPreference
+        }
+        binding.tvMyyBoard.setOnClickListener {
+            val intent = Intent(this, NotificationActivity::class.java)
         }
     }
 

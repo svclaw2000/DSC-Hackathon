@@ -1,41 +1,78 @@
 package com.example.goorum.utils
 
+import android.util.Log
 import com.google.gson.JsonObject
 import com.google.gson.JsonParser
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import java.io.BufferedReader
-import java.io.IOException
-import java.io.InputStream
-import java.io.InputStreamReader
+import java.io.*
+import java.lang.Exception
 import java.net.HttpURLConnection
 import java.net.URL
+import java.util.*
 
 class HttpHelper {
     companion object {
-        const val SERVER_URL = "http://641718c273dd.ngrok.io"
+        const val SERVER_URL = "http://8685f73e0a44.ngrok.io"
+        const val TEST_MODE = false
+
+        var mSession = false
+        var mCookies = ""
 
         suspend fun request(url: String, method: HttpMethod, data: JsonObject? = null) : JsonObject {
             val result = withContext(Dispatchers.IO) {
                 var httpConn : HttpURLConnection? = null
                 var ret = ""
 
+                val outputString = if (data != null) jsonToParamString(data) else null
+
                 try {
                     val inputStream : InputStream
-                    val urlConn = URL(SERVER_URL + url)
+
+                    val fullUrl = if (method == HttpMethod.GET && outputString != null) {
+                        "${SERVER_URL}${url}?${outputString}"
+                    } else {
+                        SERVER_URL + url
+                    }
+
+                    val urlConn = URL(fullUrl)
                     httpConn = urlConn.openConnection() as HttpURLConnection
 
                     httpConn.requestMethod = method.name
                     httpConn.doInput = true
 
-                    if (method == HttpMethod.POST) {
+                    if (mSession) {
+                        httpConn.setRequestProperty("Cookie", mCookies)
+                    }
+
+                    Log.d("HttpInfo", "${method.name} ${fullUrl}")
+
+                    if ((method == HttpMethod.POST || method == HttpMethod.PUT) && outputString != null) {
                         httpConn.doOutput = true
                         val outputStream = httpConn.outputStream
-                        outputStream.write(data.toString().toByteArray())
+
+                        Log.d("HttpOutput", outputString)
+
+                        outputStream.write(outputString.toByteArray())
                         outputStream.flush()
                     }
 
                     val status = httpConn.responseCode
+
+                    val header = httpConn.headerFields
+                    if (header.containsKey("Set-Cookie")) {
+                        val cookie = header.get("Set-Cookie")
+                        if (cookie != null) {
+                            for (c in cookie.iterator()) {
+                                mCookies += c
+                            }
+                        }
+                        Log.d("HttpCookie", "Got cookie.")
+                        mSession = true
+                    } else {
+                        mSession = false
+                    }
+
                     try {
                         inputStream = if (status != HttpURLConnection.HTTP_OK) {
                             httpConn.errorStream
@@ -57,6 +94,7 @@ class HttpHelper {
                 ret
             }
 
+            Log.d("HttpInput", result)
             return JsonParser.parseString(result).asJsonObject
         }
 
@@ -72,6 +110,15 @@ class HttpHelper {
             }
             inputStream.close()
             return ret
+        }
+
+        fun jsonToParamString(json: JsonObject) : String {
+            val list = ArrayList<String>()
+            for (key in json.keySet()) {
+                list.add("${key}=${json[key].asString}")
+            }
+
+            return list.joinToString("&")
         }
     }
 }

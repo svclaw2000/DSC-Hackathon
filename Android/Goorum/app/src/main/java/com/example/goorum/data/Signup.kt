@@ -7,6 +7,7 @@ import com.google.gson.JsonObject
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import kotlin.properties.Delegates
 
 
 class Signup(val email: String, val password: String, val nickname: String) {
@@ -33,7 +34,7 @@ class Signup(val email: String, val password: String, val nickname: String) {
 
     fun register(): Boolean {
         // 회원 등록
-        var res = false
+        var res by Delegates.notNull<Boolean>()
         val url = "/member/join"
 
         val data = JsonObject()
