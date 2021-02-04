@@ -41,6 +41,11 @@ class MyActivity : AppCompatActivity() {
             startActivity(intent)
             overridePendingTransition(R.anim.slide_up, R.anim.stay)
         }
+        binding.tvLogout.setOnClickListener {
+            val dialog = LogoutFragment()
+            dialog.show(supportFragmentManager, "logout")
+            // TODO: sharedPreference
+        }
     }
 
     fun updateInfo() {

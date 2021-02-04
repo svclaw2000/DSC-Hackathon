@@ -1,13 +1,11 @@
 package com.example.goorum.my
 
-import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.widget.EditText
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
-import com.example.goorum.LoginFailureFragment
 import com.example.goorum.R
 import com.example.goorum.data.Signin
 import com.example.goorum.databinding.ActivityPasswordBinding
