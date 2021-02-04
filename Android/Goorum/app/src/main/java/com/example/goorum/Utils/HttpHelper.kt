@@ -16,6 +16,9 @@ class HttpHelper {
         const val SERVER_URL = "http://641718c273dd.ngrok.io"
         const val TEST_MODE = false
 
+        var mSession = false
+        var mCookies = ""
+
         suspend fun request(url: String, method: HttpMethod, data: JsonObject? = null) : JsonObject {
             val result = withContext(Dispatchers.IO) {
                 var httpConn : HttpURLConnection? = null
@@ -38,6 +41,10 @@ class HttpHelper {
                     httpConn.requestMethod = method.name
                     httpConn.doInput = true
 
+                    if (mSession) {
+                        httpConn.setRequestProperty("Cookie", mCookies)
+                    }
+
                     Log.d("HttpInfo", "${method.name} ${fullUrl}")
 
                     if ((method == HttpMethod.POST || method == HttpMethod.PUT) && outputString != null) {
@@ -51,6 +58,21 @@ class HttpHelper {
                     }
 
                     val status = httpConn.responseCode
+
+                    val header = httpConn.headerFields
+                    if (header.containsKey("Set-Cookie")) {
+                        val cookie = header.get("Set-Cookie")
+                        if (cookie != null) {
+                            for (c in cookie.iterator()) {
+                                mCookies += c
+                            }
+                        }
+                        Log.d("HttpCookie", "Got cookie.")
+                        mSession = true
+                    } else {
+                        mSession = false
+                    }
+
                     try {
                         inputStream = if (status != HttpURLConnection.HTTP_OK) {
                             httpConn.errorStream
