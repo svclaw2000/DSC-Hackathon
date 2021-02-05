@@ -59,18 +59,20 @@ class HttpHelper {
 
                     val status = httpConn.responseCode
 
-                    val header = httpConn.headerFields
-                    if (header.containsKey("Set-Cookie")) {
-                        val cookie = header.get("Set-Cookie")
-                        if (cookie != null) {
-                            for (c in cookie.iterator()) {
-                                mCookies += c
+                    if (!mSession) {
+                        val header = httpConn.headerFields
+                        if (header.containsKey("Set-Cookie")) {
+                            val cookie = header.get("Set-Cookie")
+                            if (cookie != null) {
+                                for (c in cookie.iterator()) {
+                                    mCookies += c
+                                }
                             }
+                            Log.d("HttpCookie", "Got cookie.")
+                            mSession = true
+                        } else {
+                            mSession = false
                         }
-                        Log.d("HttpCookie", "Got cookie.")
-                        mSession = true
-                    } else {
-                        mSession = false
                     }
 
                     try {
