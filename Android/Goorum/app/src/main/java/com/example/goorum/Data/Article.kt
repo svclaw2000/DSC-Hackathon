@@ -232,7 +232,7 @@ class Article(
 
         val data = JsonObject()
         data.addProperty("boardId", id)
-        data.addProperty("flag", if (flag) 1 else 0)
+        data.addProperty("flag", if (flag) "ON" else "OFF")
 
         val result = HttpHelper.request("/board/like", HttpMethod.POST, data)
         if (result["result"].asInt == 1) {

@@ -57,22 +57,17 @@ class ArticleActivity : AppCompatActivity() {
             tv_date.text = SDF.datetimeSlash.format(article.date)
 
             cb_like.isChecked = article.like
-            if (!article.like) {
-                cb_like.setOnCheckedChangeListener { btn, isChecked ->
-                    GlobalScope.launch(Dispatchers.Main) {
-                        if (article.setLike(isChecked)) {
-                            if (isChecked) {
-                                article.likes += 1
-                            } else {
-                                article.likes -= 1
-                            }
-                            tv_like.text = article.likes.toString()
-                            cb_like.isEnabled = false
+            cb_like.setOnCheckedChangeListener { btn, isChecked ->
+                GlobalScope.launch(Dispatchers.Main) {
+                    if (article.setLike(isChecked)) {
+                        if (isChecked) {
+                            article.likes += 1
+                        } else {
+                            article.likes -= 1
                         }
+                        tv_like.text = article.likes.toString()
                     }
                 }
-            } else {
-                cb_like.isEnabled = false
             }
 
             val lReply = article.getReplies()
