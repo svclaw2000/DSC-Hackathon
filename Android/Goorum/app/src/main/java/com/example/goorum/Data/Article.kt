@@ -57,7 +57,7 @@ public class Article(
                 val reply = replyJson[i].asJsonObject
                 replyArray[i] = Reply(
                     id = reply["replyId"].asInt,
-                    content = reply["content"].asString,
+                    content = reply["content"].asString.replace("<br>", "\n"),
                     date = SDF.datetimeBar.parse(reply["date"].asString),
                     writer = Member(
                         id = reply["memberId"].asInt,
@@ -71,7 +71,7 @@ public class Article(
             return Article(
                 id = id,
                 title = result["title"].asString,
-                content = result["content"].asString,
+                content = result["content"].asString.replace("<br>", "\n"),
                 date = SDF.datetimeBar.parse(result["date"].asString),
                 likes =  result["likes"].asInt,
                 replies = result["replies"].asInt,
