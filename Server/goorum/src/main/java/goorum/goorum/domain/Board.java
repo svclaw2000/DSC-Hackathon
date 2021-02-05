@@ -1,8 +1,11 @@
 package goorum.goorum.domain;
 
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -11,31 +14,34 @@ import java.io.Serializable;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
+@DynamicInsert
+@DynamicUpdate
+@Builder
 public class Board implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "board_id", nullable = false)
-    private Long boardId;
+    private long boardId;
 
     @Column(name = "title", nullable = false)
-    private String Title;
+    private String title;
 
     @Column(name = "content", nullable = false)
     private String content;
 
-    @Column(name = "date", nullable = false)
+    @Column(name = "date")
     private String date;
 
-    @Column(name = "likes", nullable = false)
-    private Long likes;
-
-    @Column(name = "views", nullable = false)
-    private Long views;
-
     @Column(name = "writer", nullable = false)
-    private Long writer;
+    private long writer;
 
     @Column(name = "category", nullable = false)
-    private Long category;
+    private long category;
+
+    @Column(name="sector", nullable=false)
+    private String sector;
+
+    @Column(name="company", nullable=false)
+    private String company;
 }
