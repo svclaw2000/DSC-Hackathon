@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/page_top_bar_padding_15dp">
+
+        <ImageView
+            android:id="@+id/btn_back"
+            android:layout_width="@dimen/page_icon_size_20dp"
+            android:layout_height="@dimen/page_icon_size_20dp"
+            android:src="@drawable/ic_arrow"
+            android:layout_gravity="start|center"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/write_article"
+            android:textSize="@dimen/page_titie_text_size_18sp"
+            android:textColor="@color/board_text"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:id="@+id/btn_save"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center|end"
+            android:text="@string/save_article"
+            android:textSize="@dimen/page_titie_text_size_15sp"
+            android:textColor="@color/board_text"/>
+    </FrameLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingTop="@dimen/write_inform_margin_15dp"
+                android:paddingBottom="@dimen/write_inform_margin_15dp"
+                android:paddingStart="@dimen/write_inform_margin_15dp"
+                android:paddingEnd="@dimen/write_inform_margin_15dp">
+
+                <EditText
+                    android:id="@+id/et_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/article_title"
+                    android:textSize="@dimen/write_inform_text_size_15sp"
+                    android:textColor="@color/board_text"
+                    android:textStyle="bold"
+                    android:background="@null"
+                    android:paddingTop="@dimen/write_inform_padding_v_5dp"
+                    android:paddingBottom="@dimen/write_inform_padding_v_5dp"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal" >
+
+                    <EditText
+                        android:id="@+id/et_sector"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:hint="@string/article_sector"
+                        android:textSize="@dimen/write_inform_text_size_15sp"
+                        android:textColor="@color/board_text"
+                        android:background="@null"
+                        android:paddingTop="@dimen/write_inform_padding_v_5dp"
+                        android:paddingBottom="@dimen/write_inform_padding_v_5dp"/>
+
+                    <EditText
+                        android:id="@+id/et_company"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:hint="@string/article_company"
+                        android:textSize="@dimen/write_inform_text_size_15sp"
+                        android:textColor="@color/board_text"
+                        android:background="@null"
+                        android:paddingTop="@dimen/write_inform_padding_v_5dp"
+                        android:paddingBottom="@dimen/write_inform_padding_v_5dp"/>
+                </LinearLayout>
+            </LinearLayout>
+
+            <View style="@style/HorizontalSplit" />
+
+            <EditText
+                android:id="@+id/et_content"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="top|start"
+                android:hint="@string/article_text"
+                android:textSize="@dimen/write_text_size_12sp"
+                android:textColor="@color/board_text"
+                android:minLines="20"
+                android:background="@null"
+                android:paddingTop="@dimen/write_text_margin_15dp"
+                android:paddingBottom="@dimen/write_text_margin_15dp"
+                android:paddingStart="@dimen/write_text_margin_15dp"
+                android:paddingEnd="@dimen/write_text_margin_15dp"/>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>
