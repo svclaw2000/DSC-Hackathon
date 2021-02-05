@@ -13,7 +13,7 @@ import java.util.*
 
 class HttpHelper {
     companion object {
-        const val SERVER_URL = "https://98d0e30af79c.ngrok.io"
+        const val SERVER_URL = "http://8685f73e0a44.ngrok.io"
         const val TEST_MODE = false
 
         var mSession = false
@@ -59,20 +59,18 @@ class HttpHelper {
 
                     val status = httpConn.responseCode
 
-                    if (!mSession) {
-                        val header = httpConn.headerFields
-                        if (header.containsKey("Set-Cookie")) {
-                            val cookie = header.get("Set-Cookie")
-                            if (cookie != null) {
-                                for (c in cookie.iterator()) {
-                                    mCookies += c
-                                }
+                    val header = httpConn.headerFields
+                    if (header.containsKey("Set-Cookie")) {
+                        val cookie = header.get("Set-Cookie")
+                        if (cookie != null) {
+                            for (c in cookie.iterator()) {
+                                mCookies += c
                             }
-                            Log.d("HttpCookie", "Got cookie.")
-                            mSession = true
-                        } else {
-                            mSession = false
                         }
+                        Log.d("HttpCookie", "Got cookie.")
+                        mSession = true
+                    } else {
+                        mSession = false
                     }
 
                     try {

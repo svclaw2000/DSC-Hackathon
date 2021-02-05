@@ -32,10 +32,6 @@ class LoginActivity : AppCompatActivity() {
         etPassword = binding.etPassword.editText!!
 
         binding.bLogin.setOnClickListener {
-            Member.login()
-            val intent = Intent(this@LoginActivity, MainActivity::class.java)
-            startActivity(intent)
-            return@setOnClickListener
             val email = etEmail.text.toString()
             val password = etPassword.text.toString()
 
