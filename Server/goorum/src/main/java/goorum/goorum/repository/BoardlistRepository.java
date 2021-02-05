@@ -18,8 +18,6 @@ public interface BoardlistRepository extends JpaRepository<Boardlist, Long>{
     @Query(value = "SELECT * FROM boardlist b WHERE b.category != '공지' ORDER BY b.likes DESC LIMIT 5", nativeQuery = true)
     List<Boardlist> findTopLikes();
 
-    @Query(
-            value = "SELECT * FROM boardlist b where b.title LIKE %:keyword% OR b.content LIKE %:keyword%", nativeQuery = true
-    )
+    @Query(value = "SELECT * FROM boardlist b where b.title LIKE %:keyword% OR b.content LIKE %:keyword%", nativeQuery = true)
     Page<Boardlist> findAllSearch(@Param("keyword") String keyword, Pageable pageRequest);
 }
