@@ -25,7 +25,7 @@ class WriteArticleActivity : AppCompatActivity() {
         btn_save.setOnClickListener {
             val article = Article.getEmpty()
             article.title = et_title.text.toString()
-            article.sector = et_title.text.toString()
+            article.sector = et_sector.text.toString()
             article.company = et_company.text.toString()
             article.category = category
             article.content = et_content.text.toString()

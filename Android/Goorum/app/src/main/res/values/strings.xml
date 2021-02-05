@@ -14,9 +14,11 @@
     <string name="article_text">이 곳에 글을 작성하세요</string>
     <string name="save_article">저장</string>
 
+    <string name="search">검색</string>
     <string name="send">전송</string>
     <string name="like">공감</string>
     <string name="reply">댓글</string>
+    <string name="slash">\ /\ </string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

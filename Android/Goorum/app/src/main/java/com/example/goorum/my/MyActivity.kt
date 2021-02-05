@@ -33,8 +33,6 @@ class MyActivity : AppCompatActivity() {
         tvEmail = binding.tvEmail
         tvNickname = binding.tvNickname
 
-        updateInfo()
-
         binding.ivMyBack.setOnClickListener {
             onBackPressed()
         }
@@ -65,6 +63,12 @@ class MyActivity : AppCompatActivity() {
             intent.putExtra("title", "likes")
             startActivity(intent)
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        updateInfo()
     }
 
     fun updateInfo() {

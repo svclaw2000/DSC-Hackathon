@@ -2,9 +2,11 @@ package com.example.goorum
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
 import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -13,6 +15,9 @@ import com.example.goorum.Data.Article
 import com.example.goorum.Data.Reply
 import com.example.goorum.Utils.SDF
 import kotlinx.android.synthetic.main.activity_article.*
+import kotlinx.android.synthetic.main.activity_article.btn_back
+import kotlinx.android.synthetic.main.activity_article.tv_board_name
+import kotlinx.android.synthetic.main.activity_search.*
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -44,6 +49,20 @@ class ArticleActivity : AppCompatActivity() {
                 }
             }
         }
+
+        et_reply.setOnEditorActionListener { textView, i, keyEvent ->
+            if (i == EditorInfo.IME_ACTION_SEND) {
+                btn_reply.callOnClick()
+            }
+            true
+        }
+
+        et_reply.setOnKeyListener { view, i, keyEvent ->
+            if ((keyEvent.action== KeyEvent.ACTION_DOWN) && (i == KeyEvent.KEYCODE_ENTER)) {
+                btn_reply.callOnClick()
+            }
+            true
+        }
     }
 
     fun refresh(id: Int) {
@@ -51,6 +70,8 @@ class ArticleActivity : AppCompatActivity() {
             val article = Article.getById(id)
 
             tv_board_name.text = article.category.name
+            tv_sector.text = article.sector
+            tv_company.text = article.company
             tv_writer_name.text = article.writer.nickname
             tv_date.text = SDF.datetimeSlash.format(article.date)
 

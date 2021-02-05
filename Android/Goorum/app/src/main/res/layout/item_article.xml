@@ -75,6 +75,30 @@
             android:textSize="@dimen/main_article_text_size_10sp"
             android:textColor="@color/main_article_text_gray" />
 
+        <TextView
+            android:id="@+id/tv_sector"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="업종"
+            android:textSize="@dimen/main_article_text_size_10sp"
+            android:textColor="@color/main_article_text_gray"
+            android:layout_marginStart="@dimen/main_article_inform_margin_s_10dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/slash"
+            android:textSize="@dimen/main_article_text_size_10sp"
+            android:textColor="@color/main_article_text_gray" />
+
+        <TextView
+            android:id="@+id/tv_company"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="회사"
+            android:textSize="@dimen/main_article_text_size_10sp"
+            android:textColor="@color/main_article_text_gray" />
+
         <Space
             android:layout_width="0dp"
             android:layout_height="0dp"

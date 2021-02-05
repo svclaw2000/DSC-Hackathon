@@ -36,9 +36,11 @@
     <dimen name="main_article_like_margin_h_5dp">5dp</dimen>
     <dimen name="main_article_corner_10dp">10dp</dimen>
     <dimen name="main_article_stroke_2dp">2dp</dimen>
+    <dimen name="main_article_inform_margin_s_10dp">10dp</dimen>
 
     <dimen name="search_bar_padding_h_10dp">10dp</dimen>
     <dimen name="search_input_padding_h_10dp">10dp</dimen>
+    <dimen name="search_input_margin_10dp">10dp</dimen>
     <dimen name="search_text_size_15sp">15sp</dimen>
     <dimen name="search_icon_size_20dp">@dimen/page_icon_size_20dp</dimen>
     <dimen name="search_icon_margin_10dp">10dp</dimen>

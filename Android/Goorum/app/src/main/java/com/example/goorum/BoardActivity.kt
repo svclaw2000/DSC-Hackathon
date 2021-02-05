@@ -40,6 +40,9 @@ class BoardActivity : AppCompatActivity() {
             intent.putExtra("category", category?.toJsonString())
             startActivity(intent)
         }
+        if (category?.id == 0) {
+            btn_write.visibility = View.INVISIBLE
+        }
     }
 
     override fun onResume() {
@@ -67,6 +70,8 @@ class BoardActivity : AppCompatActivity() {
             val title = itemView.findViewById<TextView>(R.id.tv_title)
             val content = itemView.findViewById<TextView>(R.id.tv_content)
             val board = itemView.findViewById<TextView>(R.id.tv_board)
+            val sector = itemView.findViewById<TextView>(R.id.tv_sector)
+            val company = itemView.findViewById<TextView>(R.id.tv_company)
             val like = itemView.findViewById<TextView>(R.id.tv_like)
             val reply = itemView.findViewById<TextView>(R.id.tv_reply)
         }
@@ -89,6 +94,8 @@ class BoardActivity : AppCompatActivity() {
             holder.title.text = article.title
             holder.content.text = article.content
             holder.board.text = article.category.name
+            holder.sector.text = article.sector
+            holder.company.text = article.company
             holder.like.text = article.likes.toString()
             holder.reply.text = article.replies.toString()
         }

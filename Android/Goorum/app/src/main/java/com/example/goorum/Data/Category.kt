@@ -55,20 +55,28 @@ public class Category(val id: Int, val name: String, val korean: String) {
         return json.toString()
     }
 
-    suspend fun getArticles() : Array<Article> {
+    suspend fun getArticles(page: Int = 1, size: Int = 20, recommend: Boolean = false) : Array<Article> {
         if (HttpHelper.TEST_MODE) {
             return Article.getSamples(5, this)
         }
 
         val data = JsonObject()
-        data.addProperty("category", URLEncoder.encode(korean, "UTF-8"))
-        data.addProperty("page", 1)
-        data.addProperty("size", 20)
+        if (!recommend) {
+            if (id != 0) {
+                data.addProperty("category", URLEncoder.encode(korean, "UTF-8"))
+            }
+            data.addProperty("page", page)
+        }
+        data.addProperty("size", size)
 
         val ret = withContext(Dispatchers.IO) {
             val result = HttpHelper.request("/board", HttpMethod.GET, data)
 
-            val articles = result["board"].asJsonArray
+            val articles = if (recommend) {
+                result["topLikes"].asJsonArray
+            } else {
+                result["board"].asJsonArray
+            }
             val ret = Array(articles.size()) { Article.getEmpty() }
 
             for (i in 0..articles.size()-1) {
