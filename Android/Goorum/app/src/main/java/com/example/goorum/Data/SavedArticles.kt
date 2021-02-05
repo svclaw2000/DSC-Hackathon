@@ -14,8 +14,8 @@ import java.util.*
 class SavedArticles(
     val id: Int = -1, var title: String, var content: String, var date: Date,
     var likes: Int, var replies: Int, var like: Boolean, val writer: Member,
-    var category: Category, var sector: String, var company: String, val replyArray: Array<Reply>
-) {
+    var category: Category, var sector: String, var company: String, val replyArray: Array<Reply>) {
+
     companion object {
         fun getFromJson(string: String) : SavedArticles {
             val json = JsonParser.parseString(string).asJsonObject

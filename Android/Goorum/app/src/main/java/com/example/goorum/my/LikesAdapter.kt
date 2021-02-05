@@ -8,6 +8,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.goorum.Data.SavedArticles
 import com.example.goorum.R
+import com.example.goorum.Utils.SDF
 
 class LikesAdapter(val context: Context, val likesList: Array<SavedArticles>,
                    val itemClick: (SavedArticles) -> Unit) : RecyclerView.Adapter<LikesAdapter.Holder>() {
@@ -27,12 +28,14 @@ class LikesAdapter(val context: Context, val likesList: Array<SavedArticles>,
 
     inner class Holder(itemView: View, itemClick: (SavedArticles) -> Unit) : RecyclerView.ViewHolder(itemView) {
         val writer = itemView.findViewById<TextView>(R.id.tvWriter)
+        val date = itemView.findViewById<TextView>(R.id.tvDate)
         val title = itemView.findViewById<TextView>(R.id.tvTitle)
         val preview = itemView.findViewById<TextView>(R.id.tvContentPreview)
         val category = itemView.findViewById<TextView>(R.id.tvCategoryInfo)
 
         fun bind(likes: SavedArticles, context: Context) {
             writer.text = likes.writer.nickname
+            date.text = SDF.datetimeSlash.format(likes.date)
             title.text = likes.title
             preview.text = likes.content
             category.text = likes.category.name
