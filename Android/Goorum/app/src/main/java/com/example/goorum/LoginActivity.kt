@@ -31,14 +31,6 @@ class LoginActivity : AppCompatActivity() {
         val curId = App.prefs.userId
         val curPw = App.prefs.userPw
 
-        if (curId == null) {
-            Log.i(TAG, "현재 id: ${curId}는 null")
-        } else if (curId == "") {
-            Log.i(TAG, "현재 id: ${curId}는 빈 문자열")
-        } else {
-            Log.i(TAG, "현재 id: ${curId}는 둘다 아님...")
-        }
-
         if (curId != "" && curPw != "" && curId != null && curPw != null) {
             Log.i(TAG, "현재 id: $curId, 현재 pw: $curPw")
             matchesExistingAccount(curId, curPw)
@@ -53,6 +45,9 @@ class LoginActivity : AppCompatActivity() {
 
             if (email != "" && password != "") {
                 matchesExistingAccount(email, password)
+
+//                val intent = Intent(this, MainActivity::class.java)
+//                startActivity(intent)
             }
         }
         binding.tvSignUp.setOnClickListener {

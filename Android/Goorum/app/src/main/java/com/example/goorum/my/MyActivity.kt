@@ -74,6 +74,8 @@ class MyActivity : AppCompatActivity() {
         GlobalScope.launch(Dispatchers.Main) {
             val result = HttpHelper.request(url, HttpMethod.GET, data)
 
+            MyArticle.parse(result["board"].asJsonArray, result["likeboard"].asJsonArray)
+
             Log.d(TAG, "response: $result")
 
             tvEmail.text = App.prefs.userId

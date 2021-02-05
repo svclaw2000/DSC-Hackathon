@@ -9,7 +9,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import java.net.URLEncoder
 
-class Category(val id: Int, val name: String, val korean: String) {
+public class Category(val id: Int, val name: String, val korean: String) {
     companion object {
         val allCategory = arrayOf(
             Category(0, "전체 게시판", "전체"),

@@ -7,7 +7,7 @@ import com.google.gson.JsonObject
 import com.google.gson.JsonParser
 import java.util.*
 
-class Reply(val id: Int, val content: String, val date: Date, val writer: Member) {
+public class Reply(val id: Int, val content: String, val date: Date, val writer: Member) {
     companion object {
         fun getFromJson(string: String) : Reply {
             val json = JsonParser.parseString(string).asJsonObject

@@ -11,7 +11,7 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import java.util.*
 
-class Article(
+public class Article(
     val id: Int = -1, var title: String, var content: String, var date: Date,
     var likes: Int, var replies: Int, var like: Boolean, val writer: Member,
     var category: Category, var sector: String, var company: String, val replyArray: Array<Reply>

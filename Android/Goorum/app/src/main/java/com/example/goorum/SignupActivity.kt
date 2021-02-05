@@ -101,6 +101,8 @@ class SignupActivity : AppCompatActivity() {
                 or Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP)
 
         notExist(email, password, nickname)
+
+        startActivity(intent)
     }
 
     fun isValidEmail(str: String): Boolean{

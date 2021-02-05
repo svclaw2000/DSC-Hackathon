@@ -6,10 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.goorum.Data.SavedArticles
 import com.example.goorum.R
 
-class LikesAdapter(val context: Context, val likesList: ArrayList<LikesData>,
-                   val itemClick: (LikesData) -> Unit) : RecyclerView.Adapter<LikesAdapter.Holder>() {
+class LikesAdapter(val context: Context, val likesList: Array<SavedArticles>,
+                   val itemClick: (SavedArticles) -> Unit) : RecyclerView.Adapter<LikesAdapter.Holder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): Holder {
         val view = LayoutInflater.from(context)
             .inflate(R.layout.notification_list_item, parent, false)
@@ -24,17 +25,17 @@ class LikesAdapter(val context: Context, val likesList: ArrayList<LikesData>,
         holder.bind(likesList[position], context)
     }
 
-    inner class Holder(itemView: View, itemClick: (LikesData) -> Unit) : RecyclerView.ViewHolder(itemView) {
+    inner class Holder(itemView: View, itemClick: (SavedArticles) -> Unit) : RecyclerView.ViewHolder(itemView) {
         val writer = itemView.findViewById<TextView>(R.id.tvWriter)
         val title = itemView.findViewById<TextView>(R.id.tvTitle)
         val preview = itemView.findViewById<TextView>(R.id.tvContentPreview)
         val category = itemView.findViewById<TextView>(R.id.tvCategoryInfo)
 
-        fun bind(likes: LikesData, context: Context) {
-            writer.text = likes.writer
+        fun bind(likes: SavedArticles, context: Context) {
+            writer.text = likes.writer.nickname
             title.text = likes.title
             preview.text = likes.content
-            category.text = likes.category
+            category.text = likes.category.name
 
             itemView.setOnClickListener {itemClick(likes)}
         }

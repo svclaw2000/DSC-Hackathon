@@ -8,7 +8,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
-class Member(val id: Int, val username: String, val nickname: String, val email: String) {
+public class Member(val id: Int, val username: String, val nickname: String, val email: String) {
     companion object {
         fun getFromJson(string: String) : Member {
             val json = JsonParser.parseString(string).asJsonObject
