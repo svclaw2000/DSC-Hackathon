@@ -7,7 +7,6 @@ import android.text.TextWatcher
 import android.widget.EditText
 import androidx.databinding.DataBindingUtil
 import com.example.goorum.R
-import com.example.goorum.data.Signup
 import com.example.goorum.databinding.ActivityNicknameBinding
 
 class NicknameActivity : AppCompatActivity() {

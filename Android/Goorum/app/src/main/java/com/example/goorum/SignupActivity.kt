@@ -8,10 +8,16 @@ import android.util.Log
 import android.view.Window
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.widget.addTextChangedListener
 import androidx.databinding.DataBindingUtil
-import com.example.goorum.data.Signup
 import com.example.goorum.databinding.ActivitySignupBinding
+import com.example.goorum.my.PasswordChangeFailureFragment
+import com.example.goorum.my.SignupFailureFragment
+import com.example.goorum.utils.HttpHelper
+import com.example.goorum.utils.HttpMethod
+import com.google.gson.JsonObject
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import java.util.regex.Pattern
 
 class SignupActivity : AppCompatActivity() {
@@ -95,17 +101,52 @@ class SignupActivity : AppCompatActivity() {
         intent.flags = (Intent.FLAG_ACTIVITY_NEW_TASK
                 or Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP)
 
-        val signup = Signup(email, password, nickname)
-        if(!signup.notExist()) {
-            Toast.makeText(this, "이미 존재하는 계정입니다.", Toast.LENGTH_LONG).show()
-        } else if(signup.register()) {
-            onBackPressed()
-        } else {
-            Log.e(TAG, "Sign up failed")
-        }
+        notExist(email, password, nickname)
     }
 
     fun isValidEmail(str: String): Boolean{
         return EMAIL_ADDRESS_PATTERN.matcher(str).matches()
+    }
+
+    fun notExist(e: String, p: String, n: String) {
+        // 중복되는 이메일이 있는지 검사
+        val url = "/member/check-duplicate"
+
+        val data = JsonObject()
+        data.addProperty("id", e)
+
+        GlobalScope.launch(Dispatchers.Main) {
+            val result = HttpHelper.request(url, HttpMethod.GET, data)
+            Log.d(TAG, result.toString())
+            if (result["result"].asInt == 1) {
+                register(e, p, n)
+            } else {
+                val dialog = SignupFailureFragment()
+                dialog.show(supportFragmentManager, "signup failed")
+            }
+        }
+    }
+
+    fun register(e: String, p: String, n: String) {
+        // 회원 등록
+        val url = "/member/join"
+
+        val data = JsonObject()
+        data.addProperty("id", e)
+        data.addProperty("pwd", p)
+        data.addProperty("email", e)
+        data.addProperty("nick", n)
+
+        GlobalScope.launch(Dispatchers.Main) {
+            val result = HttpHelper.request(url, HttpMethod.POST, data)
+            Log.d(TAG, result.toString())
+            if (result["result"].asInt == 1) {
+                onBackPressed()
+            } else {
+                Log.e(TAG, "Sign up failed")
+            }
+
+            return@launch
+        }
     }
 }

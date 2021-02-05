@@ -5,7 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import com.example.goorum.likes.NotificationActivity
+import com.example.goorum.my.NotificationActivity
 import com.example.goorum.my.MyActivity
 
 class MainActivity : AppCompatActivity() {

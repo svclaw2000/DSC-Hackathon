@@ -2,12 +2,21 @@ package com.example.goorum.my
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import com.example.goorum.App
+import com.example.goorum.LoginActivity
 import com.example.goorum.R
 import com.example.goorum.databinding.ActivityMyBinding
-import com.example.goorum.likes.NotificationActivity
+import com.example.goorum.utils.HttpHelper
+import com.example.goorum.utils.HttpMethod
+import com.google.gson.JsonObject
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 class MyActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMyBinding
@@ -45,16 +54,30 @@ class MyActivity : AppCompatActivity() {
         binding.tvLogout.setOnClickListener {
             val dialog = LogoutFragment()
             dialog.show(supportFragmentManager, "logout")
-            // TODO: sharedPreference
         }
-        binding.tvMyyBoard.setOnClickListener {
-            val intent = Intent(this, NotificationActivity::class.java)
+
+        val intent = Intent(this, NotificationActivity::class.java)
+        binding.tvMyBoard.setOnClickListener {
+            intent.putExtra("title", "my_activity")
+            startActivity(intent)
+        }
+        binding.tvLikes.setOnClickListener {
+            intent.putExtra("title", "likes")
+            startActivity(intent)
         }
     }
 
     fun updateInfo() {
-        // TODO: Member instance 생성 후 사용
-        tvEmail.text = "khs990419@gmail.com"
-        tvNickname.text = "번둥천개"
+        val url = "/mypage"
+        val data = JsonObject()
+
+        GlobalScope.launch(Dispatchers.Main) {
+            val result = HttpHelper.request(url, HttpMethod.GET, data)
+
+            tvEmail.text = App.prefs.userId
+            tvNickname.text = result["nick"].asString
+
+            return@launch
+        }
     }
 }

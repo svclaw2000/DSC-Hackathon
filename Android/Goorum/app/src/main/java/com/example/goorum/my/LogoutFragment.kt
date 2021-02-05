@@ -50,8 +50,8 @@ class LogoutFragment : DialogFragment() {
                 val intent = Intent(mActivity, LoginActivity::class.java)
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK)
 
-                App.prefs.userId = ""
-                App.prefs.userPw = ""
+                App.prefs.userId = null
+                App.prefs.userPw = null
 
                 mActivity.startActivity(intent)
             } else {

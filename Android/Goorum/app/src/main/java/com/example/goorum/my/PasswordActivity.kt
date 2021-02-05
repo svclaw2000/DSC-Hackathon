@@ -8,6 +8,12 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.example.goorum.R
 import com.example.goorum.databinding.ActivityPasswordBinding
+import com.example.goorum.utils.HttpHelper
+import com.example.goorum.utils.HttpMethod
+import com.google.gson.JsonObject
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 class PasswordActivity : AppCompatActivity() {
     private lateinit var binding: ActivityPasswordBinding
@@ -32,12 +38,7 @@ class PasswordActivity : AppCompatActivity() {
         })
 
         binding.bChangePassword.setOnClickListener {
-            if (comparePassword()) {
-                onBackPressed()
-            } else {
-                val dialog = PasswordChangeFailureFragment()
-                dialog.show(supportFragmentManager, "login failed")
-            }
+            comparePassword(etCurPassword.text.toString(), etNewPassword.text.toString())
         }
 
         binding.ivClose.setOnClickListener {
@@ -50,10 +51,22 @@ class PasswordActivity : AppCompatActivity() {
         overridePendingTransition(R.anim.stay, R.anim.slide_down)
     }
 
-    fun comparePassword(): Boolean {
-//        val signin = Signin()
-//        if (signin.matchesCurPassword(etCurPassword.text.toString()))
-//            return true
-        return false
+    fun comparePassword(curPwd: String, newPwd: String) {
+        val url = "/member/changePWD"
+        val data = JsonObject()
+
+        data.addProperty("pwd", curPwd)
+        data.addProperty("newPwd", newPwd)
+
+        GlobalScope.launch(Dispatchers.Main) {
+            val result = HttpHelper.request(url, HttpMethod.GET, data)
+
+            if (result["result"].asInt == 1) {
+                onBackPressed()
+            } else {
+                val dialog = PasswordChangeFailureFragment()
+                dialog.show(supportFragmentManager, "login failed")
+            }
+        }
     }
 }

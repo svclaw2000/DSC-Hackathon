@@ -20,12 +20,29 @@ class LoginActivity : AppCompatActivity() {
     lateinit var binding: ActivityLoginBinding
     lateinit var etEmail: EditText
     lateinit var etPassword: EditText
-    // TODO: sharedPreference
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil
             .setContentView(this, R.layout.activity_login)
+
+        // 자동 로그인
+        // TODO: loading page
+        val curId = App.prefs.userId
+        val curPw = App.prefs.userPw
+
+        if (curId == null) {
+            Log.i(TAG, "현재 id: ${curId}는 null")
+        } else if (curId == "") {
+            Log.i(TAG, "현재 id: ${curId}는 빈 문자열")
+        } else {
+            Log.i(TAG, "현재 id: ${curId}는 둘다 아님...")
+        }
+
+        if (curId != "" && curPw != "" && curId != null && curPw != null) {
+            Log.i(TAG, "현재 id: $curId, 현재 pw: $curPw")
+            matchesExistingAccount(curId, curPw)
+        }
 
         etEmail = binding.etId.editText!!
         etPassword = binding.etPassword.editText!!
@@ -35,8 +52,7 @@ class LoginActivity : AppCompatActivity() {
             val password = etPassword.text.toString()
 
             if (email != "" && password != "") {
-                val signin = Signin(email, password)
-                signin.matchesExistingAccount()
+                matchesExistingAccount(email, password)
             }
         }
         binding.tvSignUp.setOnClickListener {
@@ -48,11 +64,13 @@ class LoginActivity : AppCompatActivity() {
 
     fun onSignin() {
         val intent = Intent(this, MainActivity::class.java)
+
         val email = etEmail.text.toString()
         val password = etPassword.text.toString()
 
         App.prefs.userId = email
         App.prefs.userPw = password
+
         startActivity(intent)
     }
 
@@ -61,24 +79,23 @@ class LoginActivity : AppCompatActivity() {
         dialog.show(supportFragmentManager, "login failed")
     }
 
-    inner class Signin(val email: String = "test", val password: String = "test") {
+    fun matchesExistingAccount(email: String, password: String) {
         val TAG = "Signin"
+        val url = "/member/login"
 
-        fun matchesExistingAccount() {
-            val url = "/member/login"
+        val data = JsonObject()
+        data.addProperty("id", email)
+        data.addProperty("pwd", password)
 
-            val data = JsonObject()
-            data.addProperty("id", email)
-            data.addProperty("pwd", password)
-
-            GlobalScope.launch(Dispatchers.Main) {
-                val result = HttpHelper.request(url, HttpMethod.POST, data)
-                Log.d(TAG, result.toString())
-                if (result["result"].asInt == 1) {
-                    onSignin()
-                } else {
-                    onFailed()
-                }
+        GlobalScope.launch(Dispatchers.Main) {
+            val result = HttpHelper.request(url, HttpMethod.POST, data)
+            Log.d(TAG, result.toString())
+            if (result["result"].asInt == 1) {
+                onSignin()
+                return@launch
+            } else {
+                onFailed()
+                return@launch
             }
         }
     }

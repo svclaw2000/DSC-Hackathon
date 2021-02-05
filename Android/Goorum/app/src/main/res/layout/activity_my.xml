@@ -197,7 +197,7 @@
                     android:padding="@dimen/my_info_padding">
 
                     <TextView
-                        android:id="@+id/tvMyyBoard"
+                        android:id="@+id/tvMyBoard"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="내 활동"

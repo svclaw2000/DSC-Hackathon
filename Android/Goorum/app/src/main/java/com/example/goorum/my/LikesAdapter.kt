@@ -1,4 +1,4 @@
-package com.example.goorum.likes
+package com.example.goorum.my
 
 import android.content.Context
 import android.view.LayoutInflater
