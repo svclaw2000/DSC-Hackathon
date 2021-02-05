@@ -135,6 +135,30 @@
             android:textColor="@color/board_text"
             android:layout_marginStart="@dimen/article_count_margin_h_5dp"
             android:layout_marginEnd="@dimen/article_count_margin_h_5dp" />
+
+        <TextView
+            android:id="@+id/tv_sector"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="업종"
+            android:textSize="@dimen/article_text_size_13sp"
+            android:textColor="@color/board_text"
+            android:layout_marginStart="@dimen/article_count_margin_h_5dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/slash"
+            android:textSize="@dimen/article_text_size_13sp"
+            android:textColor="@color/board_text" />
+
+        <TextView
+            android:id="@+id/tv_company"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="회사"
+            android:textSize="@dimen/article_text_size_13sp"
+            android:textColor="@color/board_text" />
     </LinearLayout>
 
     <View style="@style/HorizontalSplit" />
@@ -164,6 +188,7 @@
             android:hint="@string/reply_hint"
             android:textSize="@dimen/reply_text_size_15sp"
             android:textColor="@color/board_text"
+            android:imeOptions="actionSend"
             android:paddingStart="@dimen/reply_input_padding_h_10dp"
             android:paddingEnd="@dimen/reply_input_padding_h_10dp" />
 

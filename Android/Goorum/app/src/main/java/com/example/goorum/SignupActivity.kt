@@ -100,16 +100,14 @@ class SignupActivity : AppCompatActivity() {
         intent.flags = (Intent.FLAG_ACTIVITY_NEW_TASK
                 or Intent.FLAG_ACTIVITY_CLEAR_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP)
 
-        notExist(email, password, nickname)
-
-        startActivity(intent)
+        notExist(email, password, nickname, intent)
     }
 
     fun isValidEmail(str: String): Boolean{
         return EMAIL_ADDRESS_PATTERN.matcher(str).matches()
     }
 
-    fun notExist(e: String, p: String, n: String) {
+    fun notExist(e: String, p: String, n: String, intent: Intent) {
         // 중복되는 이메일이 있는지 검사
         val url = "/member/check-duplicate"
 
@@ -125,6 +123,7 @@ class SignupActivity : AppCompatActivity() {
                 val dialog = SignupFailureFragment()
                 dialog.show(supportFragmentManager, "signup failed")
             }
+            startActivity(intent)
         }
     }
 
