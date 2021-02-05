@@ -14,10 +14,8 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.web.servlet.ModelAndView;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
 
 @Service
 @Slf4j
@@ -43,6 +41,16 @@ public class BoardServiceImpl implements BoardService {
         } else {
             boardlistPage = boardlistRepository.findAllByCategory(category, pageRequest);
         }
+
+        return boardlistPage;
+    }
+
+    @Override
+    public Page<Boardlist> getSearchList(String keyword, String category, int page, int size) {
+        Page<Boardlist> boardlistPage;
+        PageRequest pageRequest = PageRequest.of(page, size);
+
+        boardlistPage = boardlistRepository.findAllSearch(keyword, pageRequest);
 
         return boardlistPage;
     }
@@ -125,6 +133,11 @@ public class BoardServiceImpl implements BoardService {
     @Override
     public Board getBoardById(long boardId) {
         return boardRepository.findById(boardId).orElse(null);
+    }
+
+    @Override
+    public Boardlist getBoardListById(long boardId) {
+        return boardlistRepository.findById(boardId).orElse(null);
     }
 
     @Override
