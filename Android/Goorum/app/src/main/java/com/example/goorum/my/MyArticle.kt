@@ -42,7 +42,7 @@ class MyArticle() {
                         nickname = article["writerNickname"].asString,
                         email = ""
                     ),
-                    category = Category.findByKorean(article["category"].asString),
+                    category = Category(-1, article["category"].asString, ""),
                     sector = article["sector"].asString,
                     company = article["company"].asString,
                     replyArray = arrayOf()
@@ -53,6 +53,7 @@ class MyArticle() {
 
             for (i in 0..likesArticle.size()-1) {
                 val article = likesArticle[i].asJsonObject
+
                 likesRet[i] = SavedArticles(
                     id = article["boardId"].asInt,
                     title = article["title"].asString,
@@ -67,7 +68,7 @@ class MyArticle() {
                         nickname = article["writerNickname"].asString,
                         email = ""
                     ),
-                    category = Category.findByKorean(article["category"].asString),
+                    category = Category.allCategory[article["category"].asInt],
                     sector = article["sector"].asString,
                     company = article["company"].asString,
                     replyArray = arrayOf()

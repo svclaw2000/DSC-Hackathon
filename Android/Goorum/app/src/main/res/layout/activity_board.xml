@@ -15,18 +15,18 @@
             android:id="@+id/btn_back"
             android:layout_width="@dimen/page_icon_size_20dp"
             android:layout_height="@dimen/page_icon_size_20dp"
-            android:src="@drawable/ic_arrow"
-            android:layout_gravity="start|center"/>
+            android:layout_gravity="start|center"
+            android:src="@drawable/ic_arrow" />
 
         <TextView
             android:id="@+id/tv_board_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            tools:text="게시판 이름"
-            android:textSize="@dimen/page_titie_text_size_18sp"
             android:textColor="@color/board_text"
-            android:textStyle="bold"/>
+            android:textSize="@dimen/page_titie_text_size_18sp"
+            android:textStyle="bold"
+            tools:text="게시판 이름" />
 
         <TextView
             android:id="@+id/btn_write"
@@ -34,8 +34,8 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center|end"
             android:text="@string/write_article"
-            android:textSize="@dimen/page_titie_text_size_15sp"
-            android:textColor="@color/board_text"/>
+            android:textColor="@color/board_text"
+            android:textSize="@dimen/page_titie_text_size_15sp" />
     </FrameLayout>
 
     <androidx.recyclerview.widget.RecyclerView
