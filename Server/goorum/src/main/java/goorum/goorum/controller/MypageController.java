@@ -1,13 +1,7 @@
 package goorum.goorum.controller;
 
-import goorum.goorum.domain.Board;
-import goorum.goorum.domain.Boardlist;
-import goorum.goorum.domain.Member;
-import goorum.goorum.domain.Mypage;
-import goorum.goorum.service.BoardService;
-import goorum.goorum.service.MemberService;
-import goorum.goorum.service.MypageService;
-import goorum.goorum.service.ReplyService;
+import goorum.goorum.domain.*;
+import goorum.goorum.service.*;
 import goorum.goorum.util.Conversion;
 import lombok.extern.slf4j.Slf4j;
 import org.json.simple.JSONArray;
@@ -25,6 +19,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Optional;
 
 import static goorum.goorum.util.Constants.*;
 import static java.util.Objects.isNull;
@@ -49,31 +44,36 @@ public class MypageController {
     @Autowired
     private MypageService mypageService;
 
+    @Autowired
+    private MemberLikeBoardService memberLikeBoardService;
+
     @GetMapping
     public void showMypage(@RequestParam(defaultValue = DEFAULT_TYPE, required = false) String type,
-                                   @RequestParam(defaultValue = DEFAULT_PAGE, required = false) Integer page,
-                                   @RequestParam(value = "id", required = false) Long memberId,
-                                   HttpServletRequest request,
-                                   HttpServletResponse response) throws IOException {
-        ModelAndView mav = new ModelAndView();
+                           @RequestParam(defaultValue = DEFAULT_PAGE, required = false) Integer page,
+                           @RequestParam(value = "id", required = false) Long memberId,
+                           HttpServletRequest request,
+                           HttpServletResponse response) throws IOException {
 
+        ModelAndView mav = new ModelAndView();
+        JSONObject res = new JSONObject();
+
+        Member loginMember = (Member) request.getSession().getAttribute("loginMember");
         if (isNull(memberId)) {
-            Member loginMember = (Member) request.getSession().getAttribute("loginMember");
             if (isNull(loginMember)) {
                 mav.setViewName("redirect:/board");
-                //return mav;
+                res.put("result",-2);
+                return;
             }
             memberId = loginMember.getMemberId();
         }
 
         Mypage mypage = mypageService.getMypageInfo(memberId);
         if (isNull(mypage)) {
-            //return ErrorPage.show();
+            res.put("result",FAIL);
         }
 
-        // 내가쓴 게시글, 댓글 불러오기
+        // 내가쓴 게시글 불러오기
         List<Boardlist> boards =  boardService.getListByMemberId(memberId, page - 1, DEFAULT_LIST_SIZE, mav);
-        replyService.getListByMemberId(memberId, page - 1, DEFAULT_LIST_SIZE, mav);
 
         int startPage = Conversion.calcStartPage(page);
         mav.addObject("mypage", mypage);
@@ -85,8 +85,6 @@ public class MypageController {
         String nickname = mypage.getNickname();
         Integer boardNum = mypage.getBoardNum();
         Integer replyNum = mypage.getReplyNum();
-
-        JSONObject res = new JSONObject();
 
         res.put("nick", nickname);
         res.put("boardNum", boardNum); // 게시글 수
@@ -110,6 +108,29 @@ public class MypageController {
             boardArray.add(i,data);
         }
         res.put("board",boardArray);
+
+
+        // 내가 좋아요한 글 불러오기
+        List<MemberLikeBoard> memberLikeBoard = memberLikeBoardService.likeBoard(loginMember.getMemberId());
+
+        JSONArray likeBoardArray = new JSONArray();
+        for(int i=0; i<memberLikeBoard.size(); i++){
+            JSONObject likedata= new JSONObject();
+            long bid = memberLikeBoard.get(i).getBoardId();
+            likedata.put("boardId",boardService.getBoardById(bid).getBoardId());
+            likedata.put("category",boardService.getBoardById(bid).getCategory());
+            likedata.put("sector",boardService.getBoardById(bid).getSector());
+            likedata.put("company",boardService.getBoardById(bid).getCompany());
+            likedata.put("title",boardService.getBoardById(bid).getTitle());
+            likedata.put("content",boardService.getBoardById(bid).getContent());
+            likedata.put("writerId",boardService.getBoardListById(bid).getWriterId());
+            likedata.put("writerNickname",boardService.getBoardListById(bid).getWriterNickname());
+            likedata.put("date",boardService.getBoardById(bid).getDate());
+            likedata.put("likes",boardService.getBoardListById(bid).getLikes());
+            likedata.put("replies",boardService.getBoardListById(bid).getReplies());
+            likeBoardArray.add(i,likedata);
+        }
+        res.put("likeboard",likeBoardArray);
 
         response.setContentType("application/json; charset=utf-8");
         response.getWriter().print(res);

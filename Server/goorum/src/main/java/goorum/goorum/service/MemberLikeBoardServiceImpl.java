@@ -1,12 +1,13 @@
 package goorum.goorum.service;
 
+import goorum.goorum.domain.Member;
 import goorum.goorum.domain.MemberLikeBoard;
 import goorum.goorum.repository.MemberLikeBoardRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import javax.swing.text.html.Option;
+import java.util.List;
 import java.util.Optional;
 
 @Slf4j
@@ -42,4 +43,11 @@ public class MemberLikeBoardServiceImpl implements MemberLikeBoardService {
         Optional<MemberLikeBoard> mlb = memberLikeBoardRepository.findByBoardIdAndMemberId(boardId, memberId);
         mlb.ifPresent(memberLikeBoardRepository::delete);
     }
+
+    @Override
+    public List<MemberLikeBoard> likeBoard(long memberId) {
+        return memberLikeBoardRepository.findByMemberId(memberId);
+    }
+
+
 }

@@ -21,6 +21,8 @@ public interface BoardService {
 
     Board getBoardById(long boardId);
 
+    Boardlist getBoardListById(long boardId);
+
     boolean modify(Board article, String title, String content, long category, String sector, String company);
 
     void deleteArticle(long boardId);
