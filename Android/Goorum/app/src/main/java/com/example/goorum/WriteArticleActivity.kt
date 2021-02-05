@@ -6,6 +6,9 @@ import android.os.Bundle
 import com.example.goorum.Data.Article
 import com.example.goorum.Data.Category
 import kotlinx.android.synthetic.main.activity_write_article.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 class WriteArticleActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -27,8 +30,10 @@ class WriteArticleActivity : AppCompatActivity() {
             article.category = category
             article.content = et_content.text.toString()
 
-            if (article.save()) {
-                finish()
+            GlobalScope.launch(Dispatchers.Main) {
+                if (article.save()) {
+                    finish()
+                }
             }
         }
     }

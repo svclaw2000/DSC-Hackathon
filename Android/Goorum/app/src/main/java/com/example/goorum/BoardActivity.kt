@@ -50,7 +50,6 @@ class BoardActivity : AppCompatActivity() {
     fun refresh() {
         GlobalScope.launch(Dispatchers.Main) {
             val lArticle = category?.getArticles() ?: return@launch
-            Log.d("@@@", lArticle.size.toString())
             val adapter = ArticleRecyclerAdapter(lArticle)
             val lm = LinearLayoutManager(this@BoardActivity)
             rv_board.layoutManager = lm

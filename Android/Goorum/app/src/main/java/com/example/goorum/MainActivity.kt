@@ -12,6 +12,10 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.goorum.Data.Category
 import kotlinx.android.synthetic.main.activity_main.*
+import android.view.Menu
+import android.view.MenuItem
+import com.example.goorum.likes.NotificationActivity
+import com.example.goorum.my.MyActivity
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

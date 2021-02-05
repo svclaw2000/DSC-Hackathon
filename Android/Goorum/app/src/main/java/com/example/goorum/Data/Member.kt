@@ -1,9 +1,7 @@
 package com.example.goorum.Data
 
-import android.util.Log
 import com.example.goorum.Utils.HttpHelper
 import com.example.goorum.Utils.HttpMethod
-import com.example.goorum.Utils.SDF
 import com.google.gson.JsonObject
 import com.google.gson.JsonParser
 import kotlinx.coroutines.Dispatchers

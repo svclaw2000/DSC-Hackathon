@@ -19,7 +19,7 @@ class Article(
     companion object {
         fun getFromJson(string: String) : Article {
             val json = JsonParser.parseString(string).asJsonObject
-
+            HttpHelper
             val replyJson = JsonParser.parseString(json["replyArray"].asString).asJsonArray
             val replyArray = Array(replyJson.size()) { Reply.getEmpty() }
             for (i in 0..replyJson.size()-1) {
@@ -146,7 +146,7 @@ class Article(
         }
     }
 
-    fun save() : Boolean {
+    suspend fun save() : Boolean {
         if (HttpHelper.TEST_MODE) {
             return true
         }
@@ -166,14 +166,12 @@ class Article(
             url = "/board/modify"
         }
 
-        GlobalScope.launch(Dispatchers.Main) {
-            val result = HttpHelper.request(url, HttpMethod.POST, data)
-            if (result["result"].asInt == 1) {
-                ret = true
-            }
+        val result = HttpHelper.request(url, HttpMethod.POST, data)
+        if (result["result"].asInt == 1) {
+            return true
         }
 
-        return ret
+        return false
     }
 
     fun delete() : Boolean {
