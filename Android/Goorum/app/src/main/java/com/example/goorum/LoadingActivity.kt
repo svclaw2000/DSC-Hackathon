@@ -8,9 +8,8 @@ import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import androidx.annotation.UiThread
 import androidx.appcompat.app.AppCompatActivity
-import com.example.goorum.my.MyActivity
-import com.example.goorum.utils.HttpHelper
-import com.example.goorum.utils.HttpMethod
+import com.example.goorum.Utils.HttpHelper
+import com.example.goorum.Utils.HttpMethod
 import com.google.gson.JsonObject
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope

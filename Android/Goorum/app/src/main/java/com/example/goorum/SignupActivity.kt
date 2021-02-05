@@ -9,11 +9,10 @@ import android.view.Window
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
+import com.example.goorum.Utils.HttpHelper
+import com.example.goorum.Utils.HttpMethod
 import com.example.goorum.databinding.ActivitySignupBinding
-import com.example.goorum.my.PasswordChangeFailureFragment
 import com.example.goorum.my.SignupFailureFragment
-import com.example.goorum.utils.HttpHelper
-import com.example.goorum.utils.HttpMethod
 import com.google.gson.JsonObject
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope

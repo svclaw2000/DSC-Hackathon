@@ -4,21 +4,21 @@ import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import com.example.goorum.App
-import com.example.goorum.LoginActivity
 import com.example.goorum.R
+import com.example.goorum.Utils.HttpHelper
+import com.example.goorum.Utils.HttpMethod
 import com.example.goorum.databinding.ActivityMyBinding
-import com.example.goorum.utils.HttpHelper
-import com.example.goorum.utils.HttpMethod
 import com.google.gson.JsonObject
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
 class MyActivity : AppCompatActivity() {
+    val TAG = "MyActivity"
+
     private lateinit var binding: ActivityMyBinding
 
     lateinit var tvEmail: TextView
@@ -73,6 +73,8 @@ class MyActivity : AppCompatActivity() {
 
         GlobalScope.launch(Dispatchers.Main) {
             val result = HttpHelper.request(url, HttpMethod.GET, data)
+
+            Log.d(TAG, "response: $result")
 
             tvEmail.text = App.prefs.userId
             tvNickname.text = result["nick"].asString

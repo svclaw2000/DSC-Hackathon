@@ -10,8 +10,9 @@ import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.FragmentActivity
 import com.example.goorum.App
 import com.example.goorum.LoginActivity
-import com.example.goorum.utils.HttpHelper
-import com.example.goorum.utils.HttpMethod
+
+import com.example.goorum.Utils.HttpHelper
+import com.example.goorum.Utils.HttpMethod
 import com.google.gson.JsonObject
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope

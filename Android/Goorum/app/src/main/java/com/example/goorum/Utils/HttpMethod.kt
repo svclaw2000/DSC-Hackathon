@@ -1,4 +1,4 @@
-package com.example.goorum.utils
+package com.example.goorum.Utils
 
 enum class HttpMethod {
     POST,

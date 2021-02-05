@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/container"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@drawable/bg_main_article"
+    android:layout_marginTop="@dimen/main_article_margin_5dp"
+    android:layout_marginBottom="@dimen/main_article_margin_5dp"
+    android:layout_marginStart="@dimen/main_article_margin_5dp"
+    android:layout_marginEnd="@dimen/main_article_margin_5dp"
+    android:paddingTop="@dimen/main_article_padding_10dp"
+    android:paddingBottom="@dimen/main_article_padding_10dp"
+    android:paddingStart="@dimen/main_article_padding_10dp"
+    android:paddingEnd="@dimen/main_article_padding_10dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:id="@+id/tv_writer_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="글쓴이"
+            android:textSize="@dimen/main_article_text_size_10sp"
+            android:textColor="@color/main_article_text"
+            android:textStyle="bold"/>
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <TextView
+            android:id="@+id/tv_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="21/02/01 12:00"
+            android:textSize="@dimen/main_article_text_size_10sp"
+            android:textColor="@color/main_article_text_gray" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="제목"
+        android:textSize="@dimen/main_article_text_size_12sp"
+        android:textColor="@color/main_article_text"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:id="@+id/tv_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        tools:text="본문"
+        android:textSize="@dimen/main_article_text_size_12sp"
+        android:textColor="@color/main_article_text"
+        android:lines="2"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal" >
+
+        <TextView
+            android:id="@+id/tv_board"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="게시판"
+            android:textSize="@dimen/main_article_text_size_10sp"
+            android:textColor="@color/main_article_text_gray" />
+
+        <Space
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/like"
+            android:textSize="@dimen/main_article_text_size_10sp"
+            android:textColor="@color/main_article_text_gray" />
+
+        <TextView
+            android:id="@+id/tv_like"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="1"
+            android:textSize="@dimen/main_article_text_size_10sp"
+            android:textColor="@color/main_article_text_gray"
+            android:layout_marginStart="@dimen/main_article_like_margin_h_5dp"
+            android:layout_marginEnd="@dimen/main_article_like_margin_h_5dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/reply"
+            android:textSize="@dimen/main_article_text_size_10sp"
+            android:textColor="@color/main_article_text_gray" />
+
+        <TextView
+            android:id="@+id/tv_reply"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="1"
+            android:textSize="@dimen/main_article_text_size_10sp"
+            android:textColor="@color/main_article_text_gray"
+            android:layout_marginStart="@dimen/main_article_like_margin_h_5dp"
+            android:layout_marginEnd="@dimen/main_article_like_margin_h_5dp" />
+    </LinearLayout>
+</LinearLayout>

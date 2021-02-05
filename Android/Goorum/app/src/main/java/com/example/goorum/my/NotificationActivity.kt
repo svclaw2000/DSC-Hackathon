@@ -7,8 +7,8 @@ import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.goorum.R
 import com.example.goorum.databinding.ActivityNotificationBinding
-import com.example.goorum.utils.HttpHelper
-import com.example.goorum.utils.HttpMethod
+import com.example.goorum.Utils.HttpHelper
+import com.example.goorum.Utils.HttpMethod
 import com.google.gson.JsonObject
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
