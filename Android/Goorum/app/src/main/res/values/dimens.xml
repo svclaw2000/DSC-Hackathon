@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="line_1dp">1dp</dimen>
+    <dimen name="line_margin_10dp">10dp</dimen>
+
+    <dimen name="title_text_size_20sp">20sp</dimen>
+    <dimen name="title_text_margin_v_10dp">10dp</dimen>
+    <dimen name="status_bar_padding_h_20dp">20dp</dimen>
+
+    <dimen name="btn_corner_10dp">10dp</dimen>
+    <dimen name="btn_padding_v_5dp">5dp</dimen>
+    <dimen name="btn_padding_h_10dp">10dp</dimen>
+
+    <dimen name="page_icon_size_20dp">20dp</dimen>
+    <dimen name="page_titie_text_size_18sp">18sp</dimen>
+    <dimen name="page_titie_text_size_15sp">15sp</dimen>
+    <dimen name="page_top_bar_padding_15dp">15dp</dimen>
+
+    <dimen name="main_icon_size_20dp">@dimen/page_icon_size_20dp</dimen>
+    <dimen name="main_icon_margin_10dp">10dp</dimen>
+    <dimen name="board_text_margin_v_10dp">10dp</dimen>
+    <dimen name="board_text_margin_h_20dp">20dp</dimen>
+    <dimen name="board_text_size_15sp">15sp</dimen>
+    <dimen name="board_list_corner_15dp">15dp</dimen>
+    <dimen name="board_list_padding_15dp">15dp</dimen>
+    <dimen name="board_list_margin_h_10dp">10dp</dimen>
+    <dimen name="board_list_margin_v_5dp">5dp</dimen>
+
+    <dimen name="main_list_title_margin_b_10dp">10dp</dimen>
+
+    <dimen name="main_article_text_size_12sp">12sp</dimen>
+    <dimen name="main_article_text_size_10sp">10sp</dimen>
+    <dimen name="main_article_margin_5dp">5dp</dimen>
+    <dimen name="main_article_padding_10dp">10dp</dimen>
+    <dimen name="main_article_content_margin_h_10dp">10dp</dimen>
+    <dimen name="main_article_like_margin_h_5dp">5dp</dimen>
+    <dimen name="main_article_corner_10dp">10dp</dimen>
+    <dimen name="main_article_stroke_2dp">2dp</dimen>
+
+    <dimen name="search_bar_padding_h_10dp">10dp</dimen>
+    <dimen name="search_input_padding_h_10dp">10dp</dimen>
+    <dimen name="search_text_size_15sp">15sp</dimen>
+    <dimen name="search_icon_size_20dp">@dimen/page_icon_size_20dp</dimen>
+    <dimen name="search_icon_margin_10dp">10dp</dimen>
+
+    <dimen name="write_inform_text_size_15sp">15sp</dimen>
+    <dimen name="write_inform_margin_15dp">15dp</dimen>
+    <dimen name="write_inform_padding_v_5dp">5dp</dimen>
+    <dimen name="write_text_size_12sp">12sp</dimen>
+    <dimen name="write_text_margin_15dp">15dp</dimen>
+
+    <dimen name="like_icon_size_15dp">15dp</dimen>
+    <dimen name="like_icon_size_20dp">20dp</dimen>
+
+    <dimen name="article_text_size_15sp">15sp</dimen>
+    <dimen name="article_text_size_13sp">13sp</dimen>
+    <dimen name="article_text_size_11sp">11sp</dimen>
+    <dimen name="article_outer_margin_h_20dp">20dp</dimen>
+    <dimen name="article_inform_margin_v_5dp">5dp</dimen>
+    <dimen name="article_count_margin_h_5dp">5dp</dimen>
+
+    <dimen name="reply_outer_margin_h_20dp">20dp</dimen>
+    <dimen name="reply_outer_margin_v_10dp">10dp</dimen>
+    <dimen name="reply_text_size_10sp">10sp</dimen>
+    <dimen name="reply_text_size_12sp">12sp</dimen>
+    <dimen name="reply_text_size_15sp">15sp</dimen>
+    <dimen name="reply_input_padding_h_10dp">10dp</dimen>
+    <dimen name="reply_input_margin_10dp">10dp</dimen>
+
+    <dimen name="login_input_width">280dp</dimen>
+    <dimen name="top_button">52dp</dimen>
+    <dimen name="my_info_list">8dp</dimen>
+    <dimen name="my_info_list_wide">16dp</dimen>
+    <dimen name="my_info_padding">16dp</dimen>
+</resources>

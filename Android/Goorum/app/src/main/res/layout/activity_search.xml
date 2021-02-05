@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:paddingStart="@dimen/search_bar_padding_h_10dp"
+        android:paddingEnd="@dimen/search_bar_padding_h_10dp">
+
+        <EditText
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:hint="@string/search_hint"
+            android:textSize="@dimen/search_text_size_15sp"
+            android:textColor="@color/board_text"
+            android:paddingStart="@dimen/search_input_padding_h_10dp"
+            android:paddingEnd="@dimen/search_input_padding_h_10dp"/>
+
+        <ImageView
+            android:layout_width="@dimen/search_icon_size_20dp"
+            android:layout_height="@dimen/search_icon_size_20dp"
+            android:src="@drawable/ic_search"
+            android:layout_margin="@dimen/search_icon_margin_10dp" />
+    </LinearLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_search"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+</LinearLayout>

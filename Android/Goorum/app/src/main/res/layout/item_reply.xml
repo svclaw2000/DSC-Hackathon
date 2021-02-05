@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="@dimen/reply_outer_margin_v_10dp"
+        android:layout_marginBottom="@dimen/reply_outer_margin_v_10dp"
+        android:layout_marginStart="@dimen/reply_outer_margin_h_20dp"
+        android:layout_marginEnd="@dimen/reply_outer_margin_h_20dp" >
+
+        <TextView
+            android:id="@+id/tv_writer_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="글쓴이"
+            android:textSize="@dimen/reply_text_size_12sp"
+            android:textColor="@color/board_text"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:id="@+id/tv_reply"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            tools:text="본문"
+            android:textSize="@dimen/reply_text_size_12sp"
+            android:textColor="@color/board_text"/>
+
+        <TextView
+            android:id="@+id/tv_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:text="21/02/01 12:00"
+            android:textSize="@dimen/reply_text_size_10sp"
+            android:textColor="@color/main_article_text_gray" />
+    </LinearLayout>
+
+    <View style="@style/HorizontalSplit" />
+</LinearLayout>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/page_top_bar_padding_15dp">
+
+        <ImageView
+            android:id="@+id/btn_back"
+            android:layout_width="@dimen/page_icon_size_20dp"
+            android:layout_height="@dimen/page_icon_size_20dp"
+            android:src="@drawable/ic_arrow"
+            android:layout_gravity="start|center"/>
+
+        <TextView
+            android:id="@+id/tv_board_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            tools:text="게시판 이름"
+            android:textSize="@dimen/page_titie_text_size_18sp"
+            android:textColor="@color/board_text"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:id="@+id/btn_write"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center|end"
+            android:text="@string/write_article"
+            android:textSize="@dimen/page_titie_text_size_15sp"
+            android:textColor="@color/board_text"/>
+    </FrameLayout>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_board"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+</LinearLayout>
