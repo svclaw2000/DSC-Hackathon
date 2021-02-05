@@ -79,17 +79,17 @@ public class BoardController {
             JSONArray likeBoardArray = new JSONArray();
             for (int i = 0; i < topLikes.size(); i++) {
                 JSONObject data = new JSONObject();
-                data.put("boardId", boards.get(i).getBoardId());
-                data.put("category", boards.get(i).getCategory());
-                data.put("sector", boards.get(i).getSector());
-                data.put("company", boards.get(i).getCompany());
-                data.put("title", boards.get(i).getTitle());
-                data.put("content", boards.get(i).getContent());
-                data.put("writerId", boards.get(i).getWriterId());
-                data.put("writerNickname", boards.get(i).getWriterNickname());
-                data.put("date", boards.get(i).getDate());
-                data.put("likes", boards.get(i).getLikes());
-                data.put("replies", boards.get(i).getReplies());
+                data.put("boardId", topLikes.get(i).getBoardId());
+                data.put("category", topLikes.get(i).getCategory());
+                data.put("sector", topLikes.get(i).getSector());
+                data.put("company", topLikes.get(i).getCompany());
+                data.put("title", topLikes.get(i).getTitle());
+                data.put("content", topLikes.get(i).getContent());
+                data.put("writerId", topLikes.get(i).getWriterId());
+                data.put("writerNickname", topLikes.get(i).getWriterNickname());
+                data.put("date", topLikes.get(i).getDate());
+                data.put("likes", topLikes.get(i).getLikes());
+                data.put("replies", topLikes.get(i).getReplies());
                 likeBoardArray.add(i, data);
             }
             res.put("topLikes", likeBoardArray);
