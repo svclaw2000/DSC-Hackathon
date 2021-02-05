@@ -6,7 +6,6 @@ import android.util.Log
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
-import com.example.goorum.Data.Member
 import com.example.goorum.databinding.ActivityLoginBinding
 import com.example.goorum.Utils.HttpHelper
 import com.example.goorum.Utils.HttpMethod
