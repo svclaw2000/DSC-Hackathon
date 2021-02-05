@@ -9,6 +9,8 @@ import com.google.gson.JsonParser
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import java.net.URLEncoder
 import java.util.*
 
 public class Article(
@@ -143,6 +145,48 @@ public class Article(
             }
 
             return array
+        }
+
+        suspend fun search(keyword: String, page: Int = 1, size: Int = 20) : Array<Article> {
+            if (HttpHelper.TEST_MODE) {
+                return getSamples(5, Category.getEmpty())
+            }
+
+            val data = JsonObject()
+            data.addProperty("keyword", URLEncoder.encode(keyword, "UTF-8"))
+
+            val ret = withContext(Dispatchers.IO) {
+                val result = HttpHelper.request("/board/search", HttpMethod.POST, data)
+
+                val articles = result["board"].asJsonArray
+                val ret = Array(articles.size()) { getEmpty() }
+
+                for (i in 0..articles.size()-1) {
+                    val article = articles[i].asJsonObject
+                    ret[i] = Article(
+                        id = article["boardId"].asInt,
+                        title = article["title"].asString,
+                        content = article["content"].asString,
+                        date = SDF.datetimeBar.parse(article["date"].asString),
+                        likes =  article["likes"].asInt,
+                        replies = article["replies"].asInt,
+                        like = false,
+                        writer = Member(
+                            id = article["writerId"].asInt,
+                            username = "",
+                            nickname = article["writerNickname"].asString,
+                            email = ""
+                        ),
+                        category = Category.findByKorean(article["category"].asString),
+                        sector = article["sector"].asString,
+                        company = article["company"].asString,
+                        replyArray = arrayOf()
+                    )
+                }
+                ret
+            }
+
+            return ret
         }
     }
 

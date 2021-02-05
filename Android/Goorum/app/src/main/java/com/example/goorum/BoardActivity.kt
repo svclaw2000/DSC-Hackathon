@@ -40,6 +40,9 @@ class BoardActivity : AppCompatActivity() {
             intent.putExtra("category", category?.toJsonString())
             startActivity(intent)
         }
+        if (category?.id == 0) {
+            btn_write.visibility = View.INVISIBLE
+        }
     }
 
     override fun onResume() {
