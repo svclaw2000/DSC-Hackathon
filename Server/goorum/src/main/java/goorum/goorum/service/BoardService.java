@@ -11,6 +11,8 @@ import java.util.List;
 public interface BoardService {
     Page<Boardlist> getList(String category, int page, int size);
 
+    Page<Boardlist> getSearchList(String keyword, String category, int page, int size);
+
     boolean write(Long memberId, String title, String content, long category, String sector, String company);
 
     Boardlist getPostByIdForViewArticle(long boardId);

@@ -46,6 +46,16 @@ public class BoardServiceImpl implements BoardService {
     }
 
     @Override
+    public Page<Boardlist> getSearchList(String keyword, String category, int page, int size) {
+        Page<Boardlist> boardlistPage;
+        PageRequest pageRequest = PageRequest.of(page, size);
+
+        boardlistPage = boardlistRepository.findAllSearch(keyword, pageRequest);
+
+        return boardlistPage;
+    }
+
+    @Override
     public boolean write(Long memberId, String title, String content, long category, String sector, String company) {
         Board board = Board.builder()
                 .writer(memberId)
