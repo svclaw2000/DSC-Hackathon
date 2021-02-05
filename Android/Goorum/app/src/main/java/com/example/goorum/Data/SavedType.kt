@@ -10,7 +10,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
 class SavedType(val id: Int, val name: String, val korean: String) {
-    
+
     suspend fun getMyArticle() : Array<SavedArticles> {
         val data = JsonObject()
 

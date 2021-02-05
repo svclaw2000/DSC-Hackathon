@@ -1,13 +1,16 @@
 package com.example.goorum.my
 
+import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.goorum.ArticleActivity
 import com.example.goorum.Data.SavedType
 import com.example.goorum.R
+import com.example.goorum.WriteArticleActivity
 import com.example.goorum.databinding.ActivityNotificationBinding
 
 class NotificationActivity : AppCompatActivity() {
@@ -36,7 +39,9 @@ class NotificationActivity : AppCompatActivity() {
 
                 val adapter =
                     LikesAdapter(this, MyArticle.myRet) { likesData ->
-                        Toast.makeText(this, "${likesData.title} 본문으로 이동합니다.", Toast.LENGTH_SHORT).show()
+                        val intent = Intent(this, ArticleActivity::class.java)
+                        intent.putExtra("articleId", likesData.id)
+                        startActivity(intent)
                     }
                 recyclerView.adapter = adapter
             }
@@ -46,7 +51,9 @@ class NotificationActivity : AppCompatActivity() {
 
                 val adapter =
                     LikesAdapter(this, MyArticle.likesRet) { likesData ->
-                        Toast.makeText(this, "${likesData.title} 본문으로 이동합니다.", Toast.LENGTH_SHORT).show()
+                        val intent = Intent(this, ArticleActivity::class.java)
+                        intent.putExtra("articleId", likesData.id)
+                        startActivity(intent)
                     }
                 recyclerView.adapter = adapter
             }
