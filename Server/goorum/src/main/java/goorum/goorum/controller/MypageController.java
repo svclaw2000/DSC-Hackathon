@@ -54,8 +54,8 @@ public class MypageController {
                            HttpServletRequest request,
                            HttpServletResponse response) throws IOException {
 
-        ModelAndView mav = new ModelAndView();
         JSONObject res = new JSONObject();
+        ModelAndView mav = new ModelAndView();
 
         Member loginMember = (Member) request.getSession().getAttribute("loginMember");
         if (isNull(memberId)) {
@@ -72,9 +72,6 @@ public class MypageController {
             res.put("result",FAIL);
         }
 
-        // 내가쓴 게시글 불러오기
-        List<Boardlist> boards =  boardService.getListByMemberId(memberId, page - 1, DEFAULT_LIST_SIZE, mav);
-
         int startPage = Conversion.calcStartPage(page);
         mav.addObject("mypage", mypage);
         mav.addObject("type", type);
@@ -90,6 +87,9 @@ public class MypageController {
         res.put("boardNum", boardNum); // 게시글 수
         res.put("replyNum", replyNum); // 답변 수
 
+
+        // 내가쓴 게시글 불러오기
+        List<Boardlist> boards =  boardService.getListByMemberId(memberId, page - 1, DEFAULT_LIST_SIZE, mav);
         JSONArray boardArray = new JSONArray();
 
         for(int i=0; i<boards.size(); i++){
@@ -141,6 +141,7 @@ public class MypageController {
     @GetMapping("/show-profile")
     public ModelAndView showProfileImage(@RequestParam(value = "id") Long memberId) {
         ModelAndView mav = new ModelAndView();
+
         Mypage mypage = mypageService.getMypageInfo(memberId);
         mav.addObject("mypage", mypage);
         mav.setViewName("show_profile");
@@ -152,8 +153,11 @@ public class MypageController {
     public void setDefaultProfileImage(@RequestParam int id,
                                        HttpServletRequest request,
                                        HttpServletResponse response) throws IOException {
-        Member loginMember = (Member) request.getSession().getAttribute("loginMember");
+
         JSONObject res = new JSONObject();
+
+        Member loginMember = (Member) request.getSession().getAttribute("loginMember");
+
         if (isNull(loginMember) || loginMember.getMemberId() != id) {
             res.put("result", INVALID_APPROACH);
         }
@@ -164,6 +168,7 @@ public class MypageController {
                 res.put("result", FAIL);
             }
         }
+
         response.setContentType("application/json; charset=utf-8");
         response.getWriter().print(res);
     }

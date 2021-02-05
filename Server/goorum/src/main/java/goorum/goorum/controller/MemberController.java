@@ -39,8 +39,9 @@ public class MemberController {
                       HttpServletRequest request,
                       HttpServletResponse response) throws IOException, NoSuchAlgorithmException {
 
-        Member loginMember = memberService.login(id, pwd);
         JSONObject res = new JSONObject();
+
+        Member loginMember = memberService.login(id, pwd);
 
         if (Objects.isNull(loginMember)) {
             res.put(RESULT, FAIL);
@@ -68,8 +69,10 @@ public class MemberController {
     @GetMapping("/logout")
     public void logout(HttpServletRequest request,
                        HttpServletResponse response) throws IOException {
-        HttpSession session = request.getSession();
+
         JSONObject res = new JSONObject();
+
+        HttpSession session = request.getSession();
         Member member = (Member) session.getAttribute("loginMember");
 
         if (Objects.isNull(member)) {
@@ -80,8 +83,11 @@ public class MemberController {
             session.invalidate();
             res.put(RESULT, SUCCESS);
         }
+
         response.setContentType("application/json; charset=utf-8");
         response.getWriter().print(res);
+
+        return;
     }
 
     @GetMapping("/check-duplicate")
@@ -97,6 +103,7 @@ public class MemberController {
             res.put(RESULT, SUCCESS);
             log.info("Available id : " + id);
         }
+
         response.setContentType("application/json; charset=utf-8");
         response.getWriter().print(res);
 
@@ -109,6 +116,7 @@ public class MemberController {
                      @RequestParam String email,
                      @RequestParam String nick,
                      HttpServletResponse response) throws IOException, NoSuchAlgorithmException {
+
         JSONObject res = new JSONObject();
 
         try {
@@ -122,6 +130,8 @@ public class MemberController {
 
         response.setContentType("application/json; charset=utf-8");
         response.getWriter().print(res);
+
+        return;
     }
 
     @GetMapping("/get-profile")
@@ -129,6 +139,7 @@ public class MemberController {
                                 @RequestParam String imageFileName,
                                 HttpServletRequest request,
                                 HttpServletResponse response) throws IOException {
+
         request.setCharacterEncoding("utf-8");
         response.setContentType("text/html; charset=utf-8");
     }

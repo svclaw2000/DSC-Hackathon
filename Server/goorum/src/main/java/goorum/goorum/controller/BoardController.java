@@ -52,12 +52,11 @@ public class BoardController {
     private MemberLikeBoardService memberLikeBoardService;
 
     @GetMapping
-    public void showBoard(
-            @RequestParam(defaultValue = DEFAULT_CATEGORY, required = false) String category,
-            @RequestParam(defaultValue = DEFAULT_PAGE, required = false) Integer page,
-            @RequestParam(defaultValue = DEFAULT_LIST_SIZE, required = false) Integer size,
-            HttpServletRequest request,
-            HttpServletResponse response) throws IOException {
+    public void showBoard(@RequestParam(defaultValue = DEFAULT_CATEGORY, required = false) String category,
+                          @RequestParam(defaultValue = DEFAULT_PAGE, required = false) Integer page,
+                          @RequestParam(defaultValue = DEFAULT_LIST_SIZE, required = false) Integer size,
+                          HttpServletRequest request,
+                          HttpServletResponse response) throws IOException {
 
         JSONObject res = new JSONObject();
         ModelAndView mav = new ModelAndView();
@@ -70,6 +69,7 @@ public class BoardController {
         int totalPage = boardlistPage.getTotalPages();
         int startPage = Conversion.calcStartPage(page);
 
+        // 추천글 게시판
         if (category.equals(DEFAULT_CATEGORY) && page == MAIN_PAGE) {
             List<Boardlist> notices = boardService.getNotices();
             List<Boardlist> topLikes = boardService.getTopLikes();
@@ -95,8 +95,8 @@ public class BoardController {
             res.put("topLikes", likeBoardArray);
         }
 
+        // 일반글 게시판
         JSONArray boardArray = new JSONArray();
-
         for (int i = 0; i < boards.size(); i++) {
             JSONObject data = new JSONObject();
             data.put("boardId", boards.get(i).getBoardId());
@@ -128,6 +128,7 @@ public class BoardController {
 
     @GetMapping("/write")
     public ModelAndView showWriteForm(HttpServletRequest request) {
+
         ModelAndView mav = new ModelAndView();
         Member loginMember = (Member) request.getSession().getAttribute("loginMember");
 
@@ -149,6 +150,7 @@ public class BoardController {
                       @RequestParam String company,
                       HttpServletRequest request,
                       HttpServletResponse response) throws IOException {
+
         JSONObject res = new JSONObject();
         Member loginMember = (Member) request.getSession().getAttribute("loginMember");
 
@@ -247,6 +249,7 @@ public class BoardController {
 
         response.setContentType("application/json; charset=utf-8");
         response.getWriter().print(res);
+
         return;
     }
 
@@ -258,6 +261,8 @@ public class BoardController {
                             HttpServletResponse response) throws IOException {
 
         JSONObject res = new JSONObject();
+        ModelAndView mav = new ModelAndView();
+
         Member member = (Member) request.getSession().getAttribute("loginMember");
         boolean result = replyService.deleteReply(replyId, parent, member);
 
@@ -265,12 +270,13 @@ public class BoardController {
             res.put(RESULT, INVALID_APPROACH);
             return;
         }
-        ModelAndView mav = new ModelAndView();
         mav.setViewName("redirect:/board/" + boardId);
 
         res.put(RESULT, SUCCESS);
+
         response.setContentType("application/json; charset=utf-8");
         response.getWriter().print(res);
+
         return;
     }
 
@@ -278,7 +284,9 @@ public class BoardController {
     public void showModifyForm(@PathVariable("idx") long boardId,
                                HttpServletRequest request,
                                HttpServletResponse response) throws IOException {
+
         JSONObject res = new JSONObject();
+        ModelAndView mav = new ModelAndView();
 
         Boardlist article = boardService.getPostById(boardId);
         Member loginMember = (Member) request.getSession().getAttribute("loginMember");
@@ -288,7 +296,6 @@ public class BoardController {
             return;
         }
 
-        ModelAndView mav = new ModelAndView();
         mav.setViewName("modify_form");
         mav.addObject("article", article);
         mav.addObject("categories", categoryService.getList());
@@ -312,9 +319,10 @@ public class BoardController {
                        HttpServletRequest request,
                        HttpServletResponse response) throws IOException {
 
+        JSONObject res = new JSONObject();
+
         Board article = boardService.getBoardById(boardId);
         Member loginMember = (Member) request.getSession().getAttribute("loginMember");
-        JSONObject res = new JSONObject();
 
         if (isNull(article) || isNull(loginMember) || (loginMember.getMemberId() != article.getWriter())) {
             res.put(RESULT, INVALID_APPROACH);
@@ -335,6 +343,7 @@ public class BoardController {
                           HttpServletResponse response) throws IOException {
 
         JSONObject res = new JSONObject();
+
         Member loginMember = (Member) request.getSession().getAttribute("loginMember");
 
         if (isNull(loginMember)) {
@@ -360,6 +369,7 @@ public class BoardController {
                               HttpServletResponse response) throws IOException {
 
         JSONObject res = new JSONObject();
+
         Board article = boardService.getBoardById(boardId);
         Member loginMember = (Member) request.getSession().getAttribute("loginMember");
 
@@ -367,6 +377,7 @@ public class BoardController {
             res.put(RESULT, INVALID_APPROACH);
             return;
         }
+
         boardService.deleteArticle(boardId);
         res.put(RESULT, SUCCESS);
 
