@@ -1,9 +1,12 @@
 # DSC-Hackathon
 
+#### 2021 DSC KR Solution Challenge Hackathon 수상작
+<img src="https://user-images.githubusercontent.com/61506233/107138506-21cc2e80-6958-11eb-8841-06c59c7fc44c.png" width="30%">
+
 ## 주제
 #### ✔️ UN 지속가능발전목표 UN-SDGs (UN Sustainable Development Goals) [(link)](https://sdgs.un.org/goals)
 #### ✔️ Goal 8. 양질의 일자리와 경제성장 [(link)](https://sdgs.un.org/goals/goal8)
-#### ✔️ 📱 일용직 노동자 / 알바생을 위한 커뮤니티 어플, Goorum 📱
+#### ✔️ 부당대우를 겪는 노동자를 위해 업체 신고/고발, 리뷰, 고민상담 등을 가능하게 하여 양질의 일자리 형성을 돕는 서비스입니다.
 
 </br>
 
