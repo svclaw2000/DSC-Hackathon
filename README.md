@@ -1,7 +1,7 @@
 # DSC-Hackathon
 
 #### 2021 DSC KR Solution Challenge Hackathon 수상작
-<img src="https://user-images.githubusercontent.com/61506233/107138506-21cc2e80-6958-11eb-8841-06c59c7fc44c.png" width="30%">
+<img src="https://user-images.githubusercontent.com/61506233/107141024-7fb54200-6969-11eb-9ab3-6eee4af70b4f.png" width="50%">
 
 ## 주제
 #### ✔️ UN 지속가능발전목표 UN-SDGs (UN Sustainable Development Goals) [(link)](https://sdgs.un.org/goals)
